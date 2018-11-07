@@ -1,0 +1,267 @@
+
+----- System log -----
+
+2018-11-07T14:16:59.122+01:00 axis-00408cf5b0f1 [ WARNING ] mergeresolv.sh[716]: nothing to merge falling back to backup plan!
+2018-11-07T14:17:04.504+01:00 axis-00408cf5b0f1 [ WARNING ] ipchanged[834]: respawnd not running.
+2018-11-07T14:17:08.065+01:00 axis-00408cf5b0f1 [ WARNING ] mergeresolv.sh[1205]: nothing to merge falling back to backup plan!
+2018-11-07T14:17:13.350+01:00 axis-00408cf5b0f1 [ WARNING ] disks[1332]: Failed to get /sys/ path for /dev/mmcblk0p1
+2018-11-07T14:17:13.523+01:00 axis-00408cf5b0f1 [ WARNING ] disks[1332]: disk.c : Disk disruption detection status changed for NetworkShare. Status = 'disruption'
+2018-11-07T14:17:13.523+01:00 axis-00408cf5b0f1 [ WARNING ] disks[1332]: disk.c : Disk disruption detection status changed for SD_DISK. Status = 'disruption'
+2018-11-07T14:17:15.526+01:00 axis-00408cf5b0f1 [ WARNING ] blinkenlights[1185]: CancelState - Failed to cancel state.
+2018-11-07T14:17:29.398+01:00 axis-00408cf5b0f1 [ WARNING ] scheduled: Timezone was manipulated!
+2018-11-07T14:19:12.251+01:00 axis-00408cf5b0f1 [ WARNING ] camera: Could not get VideoType from com.axis.VideoControl: Method "Get" with signature "ss" on interface "org.freedesktop.DBus.Properties" doesn't exist
+2018-11-07T14:19:12.484+01:00 axis-00408cf5b0f1 [ INFO    ] kernel: potentially unexpected fatal signal 11.
+2018-11-07T14:21:16.987+01:00 axis-00408cf5b0f1 [ WARNING ] camera: Could not get VideoType from com.axis.VideoControl: Method "Get" with signature "ss" on interface "org.freedesktop.DBus.Properties" doesn't exist
+2018-11-07T14:21:17.074+01:00 axis-00408cf5b0f1 [ INFO    ] kernel: potentially unexpected fatal signal 11.
+2018-11-07T14:21:59.205+01:00 axis-00408cf5b0f1 [ WARNING ] camera: Could not get VideoType from com.axis.VideoControl: Method "Get" with signature "ss" on interface "org.freedesktop.DBus.Properties" doesn't exist
+2018-11-07T14:21:59.466+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 4
+2018-11-07T14:21:59.509+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 2
+2018-11-07T14:21:59.509+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35476
+2018-11-07T14:21:59.512+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 4
+2018-11-07T14:21:59.548+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35439
+2018-11-07T14:21:59.550+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 2
+2018-11-07T14:21:59.551+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 4
+2018-11-07T14:21:59.586+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 2
+2018-11-07T14:21:59.586+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 4
+2018-11-07T14:21:59.586+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35439
+2018-11-07T14:21:59.632+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 2
+2018-11-07T14:21:59.632+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 4
+2018-11-07T14:21:59.632+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35451
+2018-11-07T14:21:59.666+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35417
+2018-11-07T14:21:59.667+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 2
+2018-11-07T14:21:59.667+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 4
+2018-11-07T14:21:59.667+01:00 axis-00408cf5b0f1 [ INFO    ] camera: After for
+2018-11-07T14:22:01.325+01:00 axis-00408cf5b0f1 [ INFO    ] upload.cgi: Uploaded '/tmp/camera_1_0_mipsisa32r2el.eap' size:39639
+2018-11-07T14:22:01.746+01:00 axis-00408cf5b0f1 [ INFO    ] camera[0]: stopping camera
+2018-11-07T14:22:02.964+01:00 axis-00408cf5b0f1 [ NOTICE  ] dbus[901]: [system] Reloaded configuration
+2018-11-07T14:22:04.988+01:00 axis-00408cf5b0f1 [ INFO    ] upload.cgi: Package /tmp/camera_1_0_mipsisa32r2el.eap installation OK
+2018-11-07T14:22:04.989+01:00 axis-00408cf5b0f1 [ NOTICE  ] dbus[901]: message repeated 2 times: [ [system] Reloaded configuration]
+2018-11-07T14:22:41.407+01:00 axis-00408cf5b0f1 [ INFO    ] camera[0]: starting camera
+2018-11-07T14:22:41.508+01:00 axis-00408cf5b0f1 [ INFO    ] camera: INSIDE THREAD!
+2018-11-07T14:22:41.529+01:00 axis-00408cf5b0f1 [ INFO    ] camera: STRUCT!
+2018-11-07T14:22:41.627+01:00 axis-00408cf5b0f1 [ INFO    ] camera: Resolutions 1920x1080,1280x720,800x450,480x270,320x180
+2018-11-07T14:22:41.627+01:00 axis-00408cf5b0f1 [ WARNING ] camera: Could not get VideoType from com.axis.VideoControl: Method "Get" with signature "ss" on interface "org.freedesktop.DBus.Properties" doesn't exist
+2018-11-07T14:22:41.628+01:00 axis-00408cf5b0f1 [ INFO    ] camera: Highest resolution = 1920x1080
+2018-11-07T14:22:41.666+01:00 axis-00408cf5b0f1 [ INFO    ] camera: Forloop
+2018-11-07T14:22:41.678+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35398
+2018-11-07T14:22:41.679+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 2
+2018-11-07T14:22:41.684+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 4
+2018-11-07T14:22:41.707+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 2
+2018-11-07T14:22:41.707+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 4
+2018-11-07T14:22:41.707+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35418
+2018-11-07T14:22:41.740+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35372
+2018-11-07T14:22:41.741+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 2
+2018-11-07T14:22:41.744+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 4
+2018-11-07T14:22:41.783+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35358
+2018-11-07T14:22:41.784+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 2
+2018-11-07T14:22:41.784+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 4
+2018-11-07T14:22:41.824+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 2
+2018-11-07T14:22:41.824+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 4
+2018-11-07T14:22:41.824+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35407
+2018-11-07T14:22:41.869+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35351
+2018-11-07T14:22:41.877+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 2
+2018-11-07T14:22:41.879+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 4
+2018-11-07T14:22:41.902+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35344
+2018-11-07T14:22:41.905+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 2
+2018-11-07T14:22:41.907+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 4
+2018-11-07T14:22:41.943+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 2
+2018-11-07T14:22:41.943+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35392
+2018-11-07T14:22:41.944+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 4
+2018-11-07T14:22:41.984+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 2
+2018-11-07T14:22:41.984+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 4
+2018-11-07T14:22:41.984+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35349
+2018-11-07T14:22:42.027+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 2
+2018-11-07T14:22:42.027+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 4
+2018-11-07T14:22:42.027+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35356
+2018-11-07T14:22:42.028+01:00 axis-00408cf5b0f1 [ INFO    ] camera: After for
+2018-11-07T14:22:56.319+01:00 axis-00408cf5b0f1 [ INFO    ] monolith[1056]: monolith[1056]: HTTP image/jpeg session terminated from 192.168.20.231
+2018-11-07T14:23:05.117+01:00 axis-00408cf5b0f1 [ INFO    ] upload.cgi: Uploaded '/tmp/camera_1_0_mipsisa32r2el.eap' size:39639
+2018-11-07T14:23:06.134+01:00 axis-00408cf5b0f1 [ NOTICE  ] dbus[901]: [system] Reloaded configuration
+2018-11-07T14:23:07.724+01:00 axis-00408cf5b0f1 [ INFO    ] upload.cgi: Package /tmp/camera_1_0_mipsisa32r2el.eap installation OK
+2018-11-07T14:23:07.725+01:00 axis-00408cf5b0f1 [ NOTICE  ] dbus[901]: message repeated 2 times: [ [system] Reloaded configuration]
+2018-11-07T14:23:10.498+01:00 axis-00408cf5b0f1 [ INFO    ] camera[0]: starting camera
+2018-11-07T14:23:10.575+01:00 axis-00408cf5b0f1 [ INFO    ] camera: Bind ERROR
+2018-11-07T14:26:03.873+01:00 axis-00408cf5b0f1 [ INFO    ] upload.cgi: Uploaded '/tmp/camera_1_0_mipsisa32r2el.eap' size:39674
+2018-11-07T14:26:04.887+01:00 axis-00408cf5b0f1 [ NOTICE  ] dbus[901]: [system] Reloaded configuration
+2018-11-07T14:26:06.484+01:00 axis-00408cf5b0f1 [ INFO    ] upload.cgi: Package /tmp/camera_1_0_mipsisa32r2el.eap installation OK
+2018-11-07T14:26:06.489+01:00 axis-00408cf5b0f1 [ NOTICE  ] dbus[901]: message repeated 2 times: [ [system] Reloaded configuration]
+2018-11-07T14:26:13.118+01:00 axis-00408cf5b0f1 [ INFO    ] camera[0]: starting camera
+2018-11-07T14:26:13.198+01:00 axis-00408cf5b0f1 [ INFO    ] camera: INSIDE THREAD!
+2018-11-07T14:26:13.202+01:00 axis-00408cf5b0f1 [ INFO    ] camera: STRUCT!
+2018-11-07T14:26:13.269+01:00 axis-00408cf5b0f1 [ WARNING ] camera: Could not get VideoType from com.axis.VideoControl: Method "Get" with signature "ss" on interface "org.freedesktop.DBus.Properties" doesn't exist
+2018-11-07T14:26:13.273+01:00 axis-00408cf5b0f1 [ INFO    ] camera: Resolutions 1920x1080,1280x720,800x450,480x270,320x180
+2018-11-07T14:26:13.277+01:00 axis-00408cf5b0f1 [ INFO    ] camera: Highest resolution = 1920x1080
+2018-11-07T14:26:13.354+01:00 axis-00408cf5b0f1 [ INFO    ] camera: Forloop
+2018-11-07T14:26:13.385+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 2
+2018-11-07T14:26:13.385+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 4
+2018-11-07T14:26:13.385+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35411
+2018-11-07T14:26:13.420+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35408
+2018-11-07T14:26:13.424+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 2
+2018-11-07T14:26:13.426+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 4
+2018-11-07T14:26:13.462+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35371
+2018-11-07T14:26:13.465+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 2
+2018-11-07T14:26:13.466+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 4
+2018-11-07T14:26:13.501+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35352
+2018-11-07T14:26:13.502+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 2
+2018-11-07T14:26:13.503+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 4
+2018-11-07T14:26:13.541+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35393
+2018-11-07T14:26:13.543+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 2
+2018-11-07T14:26:13.543+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 4
+2018-11-07T14:26:13.581+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35391
+2018-11-07T14:26:13.582+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 2
+2018-11-07T14:26:13.584+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 4
+2018-11-07T14:26:13.623+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35360
+2018-11-07T14:26:13.624+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 2
+2018-11-07T14:26:13.625+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 4
+2018-11-07T14:26:13.661+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35389
+2018-11-07T14:26:13.662+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 2
+2018-11-07T14:26:13.662+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 4
+2018-11-07T14:26:13.701+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35328
+2018-11-07T14:26:13.702+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 2
+2018-11-07T14:26:13.702+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 4
+2018-11-07T14:26:13.741+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35326
+2018-11-07T14:26:13.742+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 2
+2018-11-07T14:26:13.742+01:00 axis-00408cf5b0f1 [ INFO    ] camera: 4
+2018-11-07T14:26:13.743+01:00 axis-00408cf5b0f1 [ INFO    ] camera: After for
+2018-11-07T14:26:15.661+01:00 axis-00408cf5b0f1 [ INFO    ] upload.cgi: Uploaded '/tmp/camera_1_0_mipsisa32r2el.eap' size:39674
+2018-11-07T14:26:16.010+01:00 axis-00408cf5b0f1 [ INFO    ] camera[0]: stopping camera
+2018-11-07T14:26:17.137+01:00 axis-00408cf5b0f1 [ NOTICE  ] dbus[901]: [system] Reloaded configuration
+2018-11-07T14:26:18.768+01:00 axis-00408cf5b0f1 [ INFO    ] upload.cgi: Package /tmp/camera_1_0_mipsisa32r2el.eap installation OK
+2018-11-07T14:26:18.770+01:00 axis-00408cf5b0f1 [ NOTICE  ] dbus[901]: message repeated 2 times: [ [system] Reloaded configuration]
+2018-11-07T14:29:39.761+01:00 axis-00408cf5b0f1 [ INFO    ] upload.cgi: Uploaded '/tmp/camera_1_0_mipsisa32r2el.eap' size:39574
+2018-11-07T14:29:40.772+01:00 axis-00408cf5b0f1 [ NOTICE  ] dbus[901]: [system] Reloaded configuration
+2018-11-07T14:29:42.309+01:00 axis-00408cf5b0f1 [ INFO    ] upload.cgi: Package /tmp/camera_1_0_mipsisa32r2el.eap installation OK
+2018-11-07T14:29:42.312+01:00 axis-00408cf5b0f1 [ NOTICE  ] dbus[901]: message repeated 2 times: [ [system] Reloaded configuration]
+2018-11-07T14:29:46.073+01:00 axis-00408cf5b0f1 [ INFO    ] camera[0]: starting camera
+2018-11-07T14:29:46.150+01:00 axis-00408cf5b0f1 [ INFO    ] camera: INSIDE THREAD!
+2018-11-07T14:29:46.152+01:00 axis-00408cf5b0f1 [ INFO    ] camera: STRUCT!
+2018-11-07T14:29:46.233+01:00 axis-00408cf5b0f1 [ WARNING ] camera: Could not get VideoType from com.axis.VideoControl: Method "Get" with signature "ss" on interface "org.freedesktop.DBus.Properties" doesn't exist
+2018-11-07T14:29:46.234+01:00 axis-00408cf5b0f1 [ INFO    ] camera: Resolutions 1920x1080,1280x720,800x450,480x270,320x180
+2018-11-07T14:29:46.235+01:00 axis-00408cf5b0f1 [ INFO    ] camera: Highest resolution = 1920x1080
+2018-11-07T14:29:46.313+01:00 axis-00408cf5b0f1 [ INFO    ] camera: Forloop
+2018-11-07T14:29:46.341+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35141
+2018-11-07T14:29:46.381+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35133
+2018-11-07T14:29:46.420+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35147
+2018-11-07T14:29:46.461+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35181
+2018-11-07T14:29:46.501+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35145
+2018-11-07T14:29:46.541+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35128
+2018-11-07T14:29:46.580+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35081
+2018-11-07T14:29:46.620+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35106
+2018-11-07T14:29:46.660+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35065
+2018-11-07T14:29:46.699+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35074
+2018-11-07T14:29:46.702+01:00 axis-00408cf5b0f1 [ INFO    ] camera: After for
+2018-11-07T14:29:50.757+01:00 axis-00408cf5b0f1 [ INFO    ] upload.cgi: Uploaded '/tmp/camera_1_0_mipsisa32r2el.eap' size:39574
+2018-11-07T14:29:51.118+01:00 axis-00408cf5b0f1 [ INFO    ] camera[0]: stopping camera
+2018-11-07T14:29:52.144+01:00 axis-00408cf5b0f1 [ NOTICE  ] dbus[901]: [system] Reloaded configuration
+2018-11-07T14:29:53.744+01:00 axis-00408cf5b0f1 [ INFO    ] upload.cgi: Package /tmp/camera_1_0_mipsisa32r2el.eap installation OK
+2018-11-07T14:29:53.746+01:00 axis-00408cf5b0f1 [ NOTICE  ] dbus[901]: message repeated 2 times: [ [system] Reloaded configuration]
+2018-11-07T14:31:14.692+01:00 axis-00408cf5b0f1 [ INFO    ] upload.cgi: Uploaded '/tmp/camera_1_0_mipsisa32r2el.eap' size:39574
+2018-11-07T14:31:15.706+01:00 axis-00408cf5b0f1 [ NOTICE  ] dbus[901]: [system] Reloaded configuration
+2018-11-07T14:31:17.263+01:00 axis-00408cf5b0f1 [ INFO    ] upload.cgi: Package /tmp/camera_1_0_mipsisa32r2el.eap installation OK
+2018-11-07T14:31:17.265+01:00 axis-00408cf5b0f1 [ NOTICE  ] dbus[901]: message repeated 2 times: [ [system] Reloaded configuration]
+2018-11-07T14:31:22.033+01:00 axis-00408cf5b0f1 [ INFO    ] camera[0]: starting camera
+2018-11-07T14:31:22.112+01:00 axis-00408cf5b0f1 [ INFO    ] camera: INSIDE THREAD!
+2018-11-07T14:31:22.115+01:00 axis-00408cf5b0f1 [ INFO    ] camera: STRUCT!
+2018-11-07T14:31:22.190+01:00 axis-00408cf5b0f1 [ WARNING ] camera: Could not get VideoType from com.axis.VideoControl: Method "Get" with signature "ss" on interface "org.freedesktop.DBus.Properties" doesn't exist
+2018-11-07T14:31:22.196+01:00 axis-00408cf5b0f1 [ INFO    ] camera: Resolutions 1920x1080,1280x720,800x450,480x270,320x180
+2018-11-07T14:31:22.209+01:00 axis-00408cf5b0f1 [ INFO    ] camera: Highest resolution = 1920x1080
+2018-11-07T14:31:22.273+01:00 axis-00408cf5b0f1 [ INFO    ] camera: Forloop
+2018-11-07T14:31:22.302+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35280
+2018-11-07T14:31:22.339+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35211
+2018-11-07T14:31:22.379+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35243
+2018-11-07T14:31:22.419+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35188
+2018-11-07T14:31:22.459+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35207
+2018-11-07T14:31:22.499+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35211
+2018-11-07T14:31:22.540+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35206
+2018-11-07T14:31:22.579+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35243
+2018-11-07T14:31:22.621+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35270
+2018-11-07T14:31:22.660+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35246
+2018-11-07T14:31:22.661+01:00 axis-00408cf5b0f1 [ INFO    ] camera: After for
+2018-11-07T14:31:33.467+01:00 axis-00408cf5b0f1 [ INFO    ] camera: Sending
+2018-11-07T14:32:29.868+01:00 axis-00408cf5b0f1 [ INFO    ] upload.cgi: Uploaded '/tmp/camera_1_0_mipsisa32r2el.eap' size:39574
+2018-11-07T14:32:30.875+01:00 axis-00408cf5b0f1 [ NOTICE  ] dbus[901]: [system] Reloaded configuration
+2018-11-07T14:32:32.409+01:00 axis-00408cf5b0f1 [ INFO    ] upload.cgi: Package /tmp/camera_1_0_mipsisa32r2el.eap installation OK
+2018-11-07T14:32:32.411+01:00 axis-00408cf5b0f1 [ NOTICE  ] dbus[901]: message repeated 2 times: [ [system] Reloaded configuration]
+2018-11-07T14:33:45.695+01:00 axis-00408cf5b0f1 [ INFO    ] upload.cgi: Uploaded '/tmp/camera_1_0_mipsisa32r2el.eap' size:39596
+2018-11-07T14:33:46.703+01:00 axis-00408cf5b0f1 [ NOTICE  ] dbus[901]: [system] Reloaded configuration
+2018-11-07T14:33:48.246+01:00 axis-00408cf5b0f1 [ INFO    ] upload.cgi: Package /tmp/camera_1_0_mipsisa32r2el.eap installation OK
+2018-11-07T14:33:48.247+01:00 axis-00408cf5b0f1 [ NOTICE  ] dbus[901]: message repeated 2 times: [ [system] Reloaded configuration]
+2018-11-07T14:33:52.079+01:00 axis-00408cf5b0f1 [ INFO    ] camera[0]: starting camera
+2018-11-07T14:33:52.159+01:00 axis-00408cf5b0f1 [ INFO    ] camera: INSIDE THREAD!
+2018-11-07T14:33:52.159+01:00 axis-00408cf5b0f1 [ INFO    ] camera: STRUCT!
+2018-11-07T14:33:52.233+01:00 axis-00408cf5b0f1 [ WARNING ] camera: Could not get VideoType from com.axis.VideoControl: Method "Get" with signature "ss" on interface "org.freedesktop.DBus.Properties" doesn't exist
+2018-11-07T14:33:52.239+01:00 axis-00408cf5b0f1 [ INFO    ] camera: Highest resolution = 1920x1080
+2018-11-07T14:33:52.239+01:00 axis-00408cf5b0f1 [ INFO    ] camera: Resolutions 1920x1080,1280x720,800x450,480x270,320x180
+2018-11-07T14:33:52.313+01:00 axis-00408cf5b0f1 [ INFO    ] camera: Forloop
+2018-11-07T14:33:52.342+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35239
+2018-11-07T14:33:52.381+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35194
+2018-11-07T14:33:52.419+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35170
+2018-11-07T14:33:52.459+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35221
+2018-11-07T14:33:52.500+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35214
+2018-11-07T14:33:52.540+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35196
+2018-11-07T14:33:52.579+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35173
+2018-11-07T14:33:52.619+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35211
+2018-11-07T14:33:52.659+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35231
+2018-11-07T14:33:52.699+01:00 axis-00408cf5b0f1 [ INFO    ] camera: After for
+2018-11-07T14:33:52.699+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 35247
+2018-11-07T14:34:00.062+01:00 axis-00408cf5b0f1 [ INFO    ] kernel: potentially unexpected fatal signal 11.
+2018-11-07T14:35:53.559+01:00 axis-00408cf5b0f1 [ INFO    ] upload.cgi: Uploaded '/tmp/camera_1_0_mipsisa32r2el.eap' size:39649
+2018-11-07T14:35:54.562+01:00 axis-00408cf5b0f1 [ NOTICE  ] dbus[901]: [system] Reloaded configuration
+2018-11-07T14:35:56.201+01:00 axis-00408cf5b0f1 [ INFO    ] upload.cgi: Package /tmp/camera_1_0_mipsisa32r2el.eap installation OK
+2018-11-07T14:35:56.202+01:00 axis-00408cf5b0f1 [ NOTICE  ] dbus[901]: message repeated 2 times: [ [system] Reloaded configuration]
+2018-11-07T14:35:59.816+01:00 axis-00408cf5b0f1 [ INFO    ] camera[0]: starting camera
+2018-11-07T14:35:59.897+01:00 axis-00408cf5b0f1 [ INFO    ] camera: INSIDE THREAD!
+2018-11-07T14:35:59.898+01:00 axis-00408cf5b0f1 [ INFO    ] camera: STRUCT!
+2018-11-07T14:35:59.974+01:00 axis-00408cf5b0f1 [ WARNING ] camera: Could not get VideoType from com.axis.VideoControl: Method "Get" with signature "ss" on interface "org.freedesktop.DBus.Properties" doesn't exist
+2018-11-07T14:35:59.979+01:00 axis-00408cf5b0f1 [ INFO    ] camera: Resolutions 1920x1080,1280x720,800x450,480x270,320x180
+2018-11-07T14:35:59.983+01:00 axis-00408cf5b0f1 [ INFO    ] camera: Highest resolution = 1920x1080
+2018-11-07T14:36:00.072+01:00 axis-00408cf5b0f1 [ INFO    ] camera: Forloop
+2018-11-07T14:36:00.101+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 36473
+2018-11-07T14:36:00.140+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 36444
+2018-11-07T14:36:00.179+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 36448
+2018-11-07T14:36:00.219+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 36495
+2018-11-07T14:36:00.260+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 36522
+2018-11-07T14:36:00.299+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 36379
+2018-11-07T14:36:00.340+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 36396
+2018-11-07T14:36:00.386+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 36466
+2018-11-07T14:36:00.427+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 36447
+2018-11-07T14:36:00.465+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 36530
+2018-11-07T14:36:00.466+01:00 axis-00408cf5b0f1 [ INFO    ] camera: After for
+2018-11-07T14:36:12.435+01:00 axis-00408cf5b0f1 [ INFO    ] kernel: potentially unexpected fatal signal 11.
+2018-11-07T14:36:26.765+01:00 axis-00408cf5b0f1 [ INFO    ] upload.cgi: Uploaded '/tmp/camera_1_0_mipsisa32r2el.eap' size:39649
+2018-11-07T14:36:27.785+01:00 axis-00408cf5b0f1 [ NOTICE  ] dbus[901]: [system] Reloaded configuration
+2018-11-07T14:36:29.371+01:00 axis-00408cf5b0f1 [ INFO    ] upload.cgi: Package /tmp/camera_1_0_mipsisa32r2el.eap installation OK
+2018-11-07T14:36:29.373+01:00 axis-00408cf5b0f1 [ NOTICE  ] dbus[901]: message repeated 2 times: [ [system] Reloaded configuration]
+2018-11-07T14:38:52.004+01:00 axis-00408cf5b0f1 [ INFO    ] upload.cgi: Uploaded '/tmp/camera_1_0_mipsisa32r2el.eap' size:39576
+2018-11-07T14:38:53.016+01:00 axis-00408cf5b0f1 [ NOTICE  ] dbus[901]: [system] Reloaded configuration
+2018-11-07T14:38:53.399+01:00 axis-00408cf5b0f1 [ NOTICE  ] dbus[901]: [system] Reloaded configuration
+2018-11-07T14:38:54.628+01:00 axis-00408cf5b0f1 [ INFO    ] upload.cgi: Package /tmp/camera_1_0_mipsisa32r2el.eap installation OK
+2018-11-07T14:38:54.651+01:00 axis-00408cf5b0f1 [ NOTICE  ] dbus[901]: [system] Reloaded configuration
+2018-11-07T14:38:59.188+01:00 axis-00408cf5b0f1 [ INFO    ] camera[0]: starting camera
+2018-11-07T14:38:59.266+01:00 axis-00408cf5b0f1 [ INFO    ] camera: INSIDE THREAD!
+2018-11-07T14:38:59.269+01:00 axis-00408cf5b0f1 [ INFO    ] camera: STRUCT!
+2018-11-07T14:38:59.344+01:00 axis-00408cf5b0f1 [ WARNING ] camera: Could not get VideoType from com.axis.VideoControl: Method "Get" with signature "ss" on interface "org.freedesktop.DBus.Properties" doesn't exist
+2018-11-07T14:38:59.347+01:00 axis-00408cf5b0f1 [ INFO    ] camera: Resolutions 1920x1080,1280x720,800x450,480x270,320x180
+2018-11-07T14:38:59.350+01:00 axis-00408cf5b0f1 [ INFO    ] camera: Highest resolution = 1920x1080
+2018-11-07T14:38:59.434+01:00 axis-00408cf5b0f1 [ INFO    ] camera: Forloop
+2018-11-07T14:38:59.459+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 36203
+2018-11-07T14:38:59.498+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 36244
+2018-11-07T14:38:59.539+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 36197
+2018-11-07T14:38:59.577+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 36301
+2018-11-07T14:38:59.619+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 36211
+2018-11-07T14:38:59.658+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 36216
+2018-11-07T14:38:59.699+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 36209
+2018-11-07T14:38:59.738+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 36274
+2018-11-07T14:38:59.777+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 36187
+2018-11-07T14:38:59.818+01:00 axis-00408cf5b0f1 [ INFO    ] camera: After for
+2018-11-07T14:38:59.818+01:00 axis-00408cf5b0f1 [ INFO    ] camera: img_size= 36145
+2018-11-07T14:39:08.202+01:00 axis-00408cf5b0f1 [ INFO    ] camera: Sending
+2018-11-07T14:39:08.205+01:00 axis-00408cf5b0f1 [ INFO    ] kernel: potentially unexpected fatal signal 11.
+2018-11-07T14:39:17.997+01:00 axis-00408cf5b0f1 [ INFO    ] upload.cgi: Uploaded '/tmp/camera_1_0_mipsisa32r2el.eap' size:39576
+2018-11-07T14:39:19.013+01:00 axis-00408cf5b0f1 [ NOTICE  ] dbus[901]: [system] Reloaded configuration
+2018-11-07T14:39:20.649+01:00 axis-00408cf5b0f1 [ INFO    ] upload.cgi: Package /tmp/camera_1_0_mipsisa32r2el.eap installation OK
+2018-11-07T14:39:20.650+01:00 axis-00408cf5b0f1 [ NOTICE  ] dbus[901]: message repeated 2 times: [ [system] Reloaded configuration]
+2018-11-07T14:40:43.368+01:00 axis-00408cf5b0f1 [ INFO    ] upload.cgi: Uploaded '/tmp/camera_1_0_mipsisa32r2el.eap' size:39590
+2018-11-07T14:40:44.382+01:00 axis-00408cf5b0f1 [ NOTICE  ] dbus[901]: [system] Reloaded configuration
+2018-11-07T14:40:45.983+01:00 axis-00408cf5b0f1 [ INFO    ] upload.cgi: Package /tmp/camera_1_0_mipsisa32r2el.eap installation OK
+2018-11-07T14:40:45.985+01:00 axis-00408cf5b0f1 [ NOTICE  ] dbus[901]: message repeated 2 times: [ [system] Reloaded configuration]
