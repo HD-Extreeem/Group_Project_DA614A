@@ -6,16 +6,26 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 /**
  * Created by namragill on 2018-11-14.
  */
 
-public class NotifyFragment extends Fragment {
+public class NotifyFragment extends Fragment  {
+
+    ListView listView;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_notification,container,false);
+        View view = inflater.inflate(R.layout.fragment_notification,container,false);
+        initialise(view);
+        return view;
+    }
+
+    private void initialise(View view) {
+        listView = (ListView)view.findViewById(R.id.list_notify);
+     
     }
 }

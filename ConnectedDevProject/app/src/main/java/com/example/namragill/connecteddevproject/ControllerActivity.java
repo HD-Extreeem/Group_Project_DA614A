@@ -39,7 +39,8 @@ public class ControllerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_controller);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fHome,new HomeFragment());
+        getSupportFragmentManager().beginTransaction().add(R.id.fHome,new HomeFragment()).commit();
+
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation_view);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 

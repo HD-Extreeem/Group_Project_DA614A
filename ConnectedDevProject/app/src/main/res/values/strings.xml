@@ -1,7 +1,11 @@
 <resources>
     <string name="app_name">ConnectedDevProject</string>
     <string name="title_activity_controller">ControllerActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_home">Panel</string>
+    <string name="title_dashboard">Alarm</string>
+    <string name="title_notifications">Logs</string>
+    <string name="recent_good">Everything is Ok!</string>
+    <string name="recent_bad">Granny has fallen!</string>
+    <string name="image_no">No images recieved!</string>
+    <string name="image_yes">Recieved recent images!</string>
 </resources>

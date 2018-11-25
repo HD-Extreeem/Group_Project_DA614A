@@ -5,13 +5,20 @@
     android:background="@android:color/background_light"
     android:orientation="vertical">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:id="@+id/mainimg"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Everything is OK!"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
         android:textSize="30dp"
+        android:id="@+id/mainhome"
         android:textColor="@android:color/black"/>
 
 </LinearLayout>

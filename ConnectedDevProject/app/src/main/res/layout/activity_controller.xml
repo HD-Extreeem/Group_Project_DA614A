@@ -17,9 +17,8 @@
         android:id="@+id/navigation_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="?android:attr/windowBackground"
+        android:background="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
-
         app:menu="@menu/navigation" />
 
 </android.support.constraint.ConstraintLayout>

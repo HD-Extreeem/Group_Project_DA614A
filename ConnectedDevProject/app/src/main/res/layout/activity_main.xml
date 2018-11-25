@@ -8,11 +8,11 @@
     tools:context="com.example.namragill.connecteddevproject.MainActivity">
 
     <Button
+        android:id="@+id/btn"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="100dp"
-        android:id="@+id/btn"
         android:background="@drawable/ic_launcher_foreground"
         android:backgroundTint="@android:color/holo_green_dark"
         android:text="Login" />
