@@ -101,8 +101,6 @@ void loop() {
     }
     else {
       digitalWrite(LED, LOW);   // turn the LED on (HIGH is the voltage level)
-
-
     }
 
     Serial.print("Delta Ax : "); Serial.println(AxD);
