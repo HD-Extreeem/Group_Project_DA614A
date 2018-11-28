@@ -45,9 +45,7 @@ void setup() {
   digitalWrite(LED, HIGH);
   delay(1000);
   digitalWrite(LED, LOW);
-
   Wire.begin(sda, scl);
-
   MPU6050_Init();
 }
 
@@ -56,11 +54,10 @@ void loop() {
   //divide each with their sensitivity scale factor
   Ax = (double)AccelX / AccelScaleFactor;
   Ay = (double)AccelY / AccelScaleFactor;
-  Az = (double)AccelZ / (AccelScaleFactor * 10);
+  Az = (double)AccelZ / AccelScaleFactor;
   Gx = (double)GyroX / GyroScaleFactor;
   Gy = (double)GyroY / GyroScaleFactor;
   Gz = (double)GyroZ / GyroScaleFactor;
-
   AX[indx] = Ax;
   AY[indx] = Ay;
   AZ[indx] = Az;
@@ -77,8 +74,6 @@ void loop() {
     Serial.print(" Gx: "); Serial.print(Gx);
     Serial.print(" Gy: "); Serial.print(Gy);
     Serial.print(" Gz: "); Serial.println(Gz);
-
-
     Serial.print(Ax);
     Serial.print(" ");
     Serial.print(Ay);
@@ -90,12 +85,9 @@ void loop() {
     Serial.print(Gy);
     Serial.print(" ");
     Serial.println(Gz);
-
   */
 
   indx++;
-
-
   if (indx == arrSize) {
     AxD = Calculate_Diff(AX);
     AyD = Calculate_Diff(AY);
