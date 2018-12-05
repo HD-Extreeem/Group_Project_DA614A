@@ -8,31 +8,25 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <time.h>
 
 
 //Connection handler
 void *conn_handler(void *);
-struct thread_args {
-		int conn;
-		int socket_desc;
-		int client_socket;
-};
+void *send_img(void *socket);
+void send_response(int * client);
+size_t sizes[10];
+void* images[10];
+
 /*
  * Connection_handler method that handles every independent client
  * 
  */
 void *conn_handler(void *arg)
 {
-	syslog(LOG_INFO,"INSIDE THREAD!");
-	struct sockaddr_in client;
-	struct thread_args *args = arg;
+    syslog(LOG_INFO,"INSIDE THREAD!");
 
-	int conn = args->conn;
-	int socket_desc = args->socket_desc;
-	int client_socket = args->client_socket;
-
-
-	media_frame  *frame;
+    media_frame  *frame;
     void     *data;
     size_t   img_size;
     media_stream *stream;
@@ -45,78 +39,109 @@ void *conn_handler(void *arg)
     
     syslog(LOG_INFO,"Highest resolution = %s",res);
     stream = capture_open_stream(IMAGE_JPEG, res);
-    size_t sizes[10];
-    void* images[10];
+ 
 
     for (i = 0; i < 10; ++i)
     {
+        frame     = capture_get_frame(stream);
+        images[i] = capture_frame_data(frame);
+        sizes[i]  = capture_frame_size(frame);
 
-    	frame     = capture_get_frame(stream);
-		images[i] = capture_frame_data(frame);
-    	sizes[i]  = capture_frame_size(frame);
+        syslog(LOG_INFO,"img_size= %zu",sizes[i]);
+        //sprintf(&size, "%zu",img_size);
+        //syslog(LOG_INFO,"%s",size);
+        //sizes[i] = size;
 
-    	syslog(LOG_INFO,"img_size= %zu",sizes[i]);
-    	//sprintf(&size, "%zu",img_size);
-    	//syslog(LOG_INFO,"%s",size);
-    	//sizes[i] = size;
-
-    	/*memset(data,0,sizeof(data));
-    	memset(size,0,sizeof(size));
-    	memset(data,0,sizeof(data));*/
-    	capture_frame_free(frame);
-
+        /*memset(data,0,sizeof(data));
+        memset(size,0,sizeof(size));
+        memset(data,0,sizeof(data));*/
+        capture_frame_free(frame);
     }
-    
-    syslog(LOG_INFO,"After for");
-	client_socket = accept(socket_desc, (struct sockaddr *)&client, (socklen_t*)&conn);
-	
-	syslog(LOG_INFO,"Sending");
-	write(client_socket,"TEST!\n",strlen("TEST!\n"));
+}
 
-	free(args);
+void *send_img(void *client)
+{
+    int i = 0;
+    char *msg;
+    syslog(LOG_INFO,"sendimg");
+    for ( i = 0; i < 10; ++i)
+    {
+        //sprintf(msg,"%zu\n",sizes[i]);
+        //syslog(LOG_INFO,"%s\n",msg);
+        write(client,"30000",strlen("30000"));
+        write(client,"\n",strlen("\n"));
+        syslog(LOG_INFO,"sending image");
+        write(client,images[i],sizeof(images[i]));
+	}
+    close(client);
+    free(client);
+}
+
+void send_response(int * client){
+    write(client, "HTTP/1.1 200 OK\n", strlen("HTTP/1.1 200 OK\n"));
+    
+    write(client, "Content-length: 146\n", strlen("Content-length: 146\n"));
+    
+    write(client, "Content-Type: text/html\n\n", strlen("Content-Type: text/html\n\n"));
+    
+    write(client, "<html><body><H1>FALL WAS DETECTED, SAVING IMAGES</H1></body></html>", strlen("<html><body><H1>FALL WAS DETECTED, SAVING IMAGES</H1></body></html>"));
 }
 
 int main(){
 
-	//int socket_desc;
-	//int conn;
-	int *new_socket;
-	struct sockaddr_in server;
-	struct thread_args args;
-    //Create socket
-	args.socket_desc = socket(AF_INET , SOCK_STREAM , 0);
+    int conn, socket_desc, client_socket;
+    int *new_socket;
+    struct sockaddr_in server, client;
+    char req[1000];
 
-	if (args.socket_desc == -1) syslog(LOG_INFO,"FAILED TO CREATE SOCKET!");
+    //Create socket
+	socket_desc = socket(AF_INET , SOCK_STREAM , 0);
+
+	if (socket_desc == -1) syslog(LOG_INFO,"FAILED TO CREATE SOCKET!");
 
 	server.sin_family = AF_INET;
 	server.sin_addr.s_addr = INADDR_ANY;
 	server.sin_port = htons( 8080 );
 
     //Bind
-	if( bind(args.socket_desc,(struct sockaddr *)&server , sizeof(server)) < 0)
+	if( bind(socket_desc,(struct sockaddr *)&server , sizeof(server)) < 0)
 	{
         //Log error!
-		syslog(LOG_INFO,"Bind ERROR");
-		return 1;
+        syslog(LOG_INFO,"Bind ERROR");
+        return 1;
 	}
 
-	listen(args.socket_desc , 3);
+    listen(socket_desc , 4);
 
-	args.conn = sizeof(struct sockaddr_in);
+    conn = sizeof(struct sockaddr_in);
 
-    //Todo http request --> start taking images and create a thread
-	//while(1){
-
-		//if(http_req){
-			pthread_t client_thread;
-        	new_socket = malloc(sizeof *new_socket);
-        	*new_socket = args.client_socket;
-			if( pthread_create( &client_thread , NULL ,conn_handler , (void*)&args) < 0)
-			{
-				syslog(LOG_INFO,"Failed to create msg thread!!!");
-				return 1;
-			}
-			pthread_join(client_thread,NULL);
-		//}
-	//}
+    while(client_socket = accept(socket_desc, (struct sockaddr *)&client, (socklen_t*)&conn)){
+		
+        recv(client_socket,req,1000,0);
+        syslog(LOG_INFO,"got: %s",req);
+		
+        if(strstr(req,"/getReady")){
+			
+            send_response(client_socket);
+            close(client_socket);
+            pthread_t client_thread;
+            
+            if( pthread_create( &client_thread , NULL ,conn_handler , NULL) < 0)
+            {
+                syslog(LOG_INFO,"Failed to create msg thread!!!");
+                return 1;
+            }
+        }
+        else if(strstr(req,"/send")){
+            syslog(LOG_INFO,"elseif");
+            pthread_t client_thread;
+            new_socket = malloc(sizeof *new_socket);
+            *new_socket = client_socket;
+            if( pthread_create( &client_thread , NULL ,send_img, (void*)new_socket) < 0)
+            {
+                syslog(LOG_INFO,"Failed to create msg thread!!!");
+                return 1;
+            }
+        }
+    }
 }

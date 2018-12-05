@@ -1,0 +1,84 @@
+package com.mah.hadideknache.cam_test;
+
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.util.Base64;
+import android.util.Log;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.PrintStream;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
+
+/**
+ * Created by hadideknache on 2018-12-01.
+ */
+
+public class AsyncTaskGetImage extends AsyncTask<Void,Void,ArrayList<Bitmap>> {
+    private RecyclerViewDisplay viewDisplay;
+    public AsyncTaskGetImage(RecyclerViewDisplay viewDisplay) throws UnknownHostException {
+        this.viewDisplay = viewDisplay;
+        execute();
+    }
+
+    @Override
+    protected ArrayList<Bitmap> doInBackground(Void... voids) {
+        //byte [] downloaded = new byte[0];
+        ArrayList<Bitmap> images = new ArrayList<>();
+        String encoded;
+
+        try {
+            Socket socket = new Socket(InetAddress.getByName("192.168.20.250"),8080);
+            PrintStream stream = new PrintStream(socket.getOutputStream());
+            stream.println("/send");
+
+            //Works for java <--> android image transfer ONLY!
+            /*ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+            for (int i = 0;i<10;i++){
+                downloaded = (byte[]) ois.readObject();
+                images.add(BitmapFactory.decodeByteArray(downloaded,0,downloaded.length));
+                stream.println("");
+            }*/
+
+
+            BufferedReader buf = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+
+            for (int i = 0;i<10;i++) {
+
+                encoded = buf.readLine().trim();
+
+                byte[] decoded = Base64.decode(encoded, Base64.DEFAULT);
+
+                //Log.v("AsyncTaskGetImage", String.valueOf(count));
+                Log.d("AsynctaskGetImages","Sent"+i);
+                Bitmap map = BitmapFactory.decodeByteArray(decoded, 0, decoded.length);
+                images.add(map);
+            }
+
+            socket.close();
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return images;
+    }
+
+    @Override
+    protected void onPostExecute(ArrayList<Bitmap> images) {
+        super.onPostExecute(images);
+        viewDisplay.setImage(images);
+    }
+}
