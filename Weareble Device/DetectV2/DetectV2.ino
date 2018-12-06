@@ -8,19 +8,24 @@
 ESP8266WiFiMulti WiFiMulti;
 WiFiClient espClient;
 PubSubClient client(espClient);
+const char* password = "hadi1234";
+const char* ssid = "Hadi Deknache";
+//const char* password = "206264D2480";
+//const char* ssid = "Tele2Internet-9EB85";
+//IPAddress ip(192, 168, 20, 6);
+//IPAddress gateway(192, 168, 20, 1);
+//IPAddress subnet(255, 255, 255, 0);
 
-const char* password = "12121213";
-const char* ssid = "Yurdaer";
 const char* mqtt_server = "m23.cloudmqtt.com";
 const int mqtt_port =   10941;
 const char* mqtt_user = "Weareble";
 const char* mqtt_password = "Weareble";
-char* inTopic = "Project/#";
-char* outTopic = "Project";
+char* inTopic = "Project/Weareble";
+char* outTopic = "Project/Android";
 char* helloMsg = "Weareble online";
 String msg = "Project/Fall";
-const String httpUrl = "http://192.168.1.1";
-const int httpPort = 8888;
+const String httpUrl = "http://192.168.20.2:8080/getReady";
+const int httpPort = 8080;
 
 
 
@@ -72,23 +77,29 @@ void setup() {
   delay(1000);
   digitalWrite(LED, LOW);
   Wire.begin(sda, scl);
-  MPU6050_Init();
+  //  MPU6050_Init();
   setup_wifi();
+
   client.setServer(mqtt_server, mqtt_port);
   client.connect("ESP8266Client2", mqtt_user, mqtt_password);
   client.setCallback(callback);
   client.subscribe(inTopic);
+
 }
 
 bool sen_req(String httpMsg) {
   HTTPClient http;
-  http.begin(httpUrl, httpPort , "");
-
-  int httpCode =  http.POST("FALL");
+  //http.begin(httpUrl, httpPort , "/getReady");
+  http.begin(httpUrl);
+  // http.addHeader("Content-Type", "text/plain");  //Specify content-type header
+  int httpCode =  http.POST("getReady");
   if (httpCode > 0) {
+    Serial.println(httpCode);
     if (httpCode == HTTP_CODE_OK) {
       String payload = http.getString();
+      Serial.println(http.errorToString(httpCode));
       Serial.println(payload);
+      Serial.println("Http kod is ok");
     }
   } else {
     String errorCode = "[HTTP] POST... failed, error: " + http.errorToString(httpCode);
@@ -107,7 +118,8 @@ void setup_wifi() {
   Serial.println();
   Serial.print("Connecting to ");
   Serial.println(ssid);
-  WiFi.mode(WIFI_STA);
+  // WiFi.mode(WIFI_STA);
+  //WiFi.config(ip, gateway, subnet);
   WiFiMulti.addAP(ssid, password);
 
   while (WiFiMulti.run() != WL_CONNECTED) {
@@ -212,23 +224,31 @@ int Calculate_Diff(double arr[]) {
 
 
 void loop() {
-  Read_RawValue(MPU6050SlaveAddress, MPU6050_REGISTER_ACCEL_XOUT_H);
-  //divide each with their sensitivity scale factor
-  Ax = (double)AccelX / AccelScaleFactor;
-  Ay = (double)AccelY / AccelScaleFactor;
-  Az = (double)AccelZ / AccelScaleFactor;
-  Gx = (double)GyroX / GyroScaleFactor;
-  Gy = (double)GyroY / GyroScaleFactor;
-  Gz = (double)GyroZ / GyroScaleFactor;
-  AX[indx] = Ax;
-  AY[indx] = Ay;
-  AZ[indx] = Az;
-  GX[indx] = Gx;
-  GY[indx] = Gy;
-  GZ[indx] = Gz;
-
-
+  delay(2000);
+  //sen_req("Test");
+  client.publish(outTopic, helloMsg);
+  for (int i = 0; i < 3; i++) {
+    delay(1000);
+  }
+  client.loop();
   /*
+    Read_RawValue(MPU6050SlaveAddress, MPU6050_REGISTER_ACCEL_XOUT_H);
+    //divide each with their sensitivity scale factor
+    Ax = (double)AccelX / AccelScaleFactor;
+    Ay = (double)AccelY / AccelScaleFactor;
+    Az = (double)AccelZ / AccelScaleFactor;
+    Gx = (double)GyroX / GyroScaleFactor;
+    Gy = (double)GyroY / GyroScaleFactor;
+    Gz = (double)GyroZ / GyroScaleFactor;
+    AX[indx] = Ax;
+    AY[indx] = Ay;
+    AZ[indx] = Az;
+    GX[indx] = Gx;
+    GY[indx] = Gy;
+    GZ[indx] = Gz;
+
+
+
     Serial.print("Ax: "); Serial.print(Ax);
     Serial.print(" Ay: "); Serial.print(Ay);
     Serial.print(" Az: "); Serial.print(Az);
@@ -247,10 +267,10 @@ void loop() {
     Serial.print(Gy);
     Serial.print(" ");
     Serial.println(Gz);
-  */
 
-  indx++;
-  if (indx == arrSize) {
+
+    indx++;
+    if (indx == arrSize) {
     AxD = Calculate_Diff(AX);
     AyD = Calculate_Diff(AY);
     AzD = Calculate_Diff(AZ);
@@ -258,11 +278,11 @@ void loop() {
     GyD = Calculate_Diff(GY);
     GzD = Calculate_Diff(GZ);
     if ((AxD >= 5000) || (AyD >= 5000) || (AzD >= 5000)) {
-      digitalWrite(LED, HIGH);   // turn the LED on (HIGH is the voltage level)
-      client.subscribe(msg.c_str());
+     digitalWrite(LED, HIGH);   // turn the LED on (HIGH is the voltage level)
+     client.subscribe(msg.c_str());
     }
     else {
-      digitalWrite(LED, LOW);   // turn the LED on (HIGH is the voltage level)
+     digitalWrite(LED, LOW);   // turn the LED on (HIGH is the voltage level)
     }
 
     Serial.print("Delta Ax : "); Serial.println(AxD);
@@ -279,6 +299,7 @@ void loop() {
     GxD = 0;
     GyD = 0;
     GzD = 0;
-  }
-  delay(100);
+    }
+    delay(100);
+  */
 }
