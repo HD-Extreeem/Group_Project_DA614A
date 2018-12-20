@@ -3,6 +3,7 @@ package com.example.namragill.connecteddevproject;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,6 +65,14 @@ public class HomeFragment extends Fragment {
                 Log.d("Debug", "message gotten");
                 Log.d("Debug", topic);
                 Log.d("Debug", mqttMessage.toString());
+
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(getActivity());
+                builder
+                        .setContentTitle("Title")
+                        .setContentText("content")
+                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setVisibility(NotificationCompat.VISIBILITY_PUBLIC);//to show content in lock screen
+
                 textStatus.setText(mqttMessage.toString());
             }
 
