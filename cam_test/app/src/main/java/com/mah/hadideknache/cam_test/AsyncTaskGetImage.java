@@ -39,10 +39,11 @@ public class AsyncTaskGetImage extends AsyncTask<Void,Void,ArrayList<Bitmap>> {
         String encoded;
 
         try {
+            Log.d("AsynctaskGetImages","Inside socket sending method");
             Socket socket = new Socket(InetAddress.getByName("192.168.20.250"),8080);
             PrintStream stream = new PrintStream(socket.getOutputStream());
             stream.println("/send");
-
+            Log.d("AsynctaskGetImages","sent to server");
             //Works for java <--> android image transfer ONLY!
             /*ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
             for (int i = 0;i<10;i++){
@@ -58,13 +59,32 @@ public class AsyncTaskGetImage extends AsyncTask<Void,Void,ArrayList<Bitmap>> {
             for (int i = 0;i<10;i++) {
 
                 encoded = buf.readLine().trim();
+                Log.d("AsynctaskGetImages","Got "+encoded.substring(encoded.length()-7,encoded.length()-1));
+                //int maxLogSize = 4000;
+                /*for(int j = 0; j <= encoded.length() / maxLogSize; j++) {
+                    int start = j * maxLogSize;
+                    int end = (j+1) * maxLogSize;
+                    end = end > encoded.length() ? encoded.length() : end;
+                    Log.v("AsynctaskGetImages", encoded.substring(start, end));
+                }*/
+                Log.d("AsynctaskGetImages","Got size = "+encoded.length());
+                while(encoded.charAt(encoded.length()-1)!='Z' && encoded.charAt(encoded.length()-1)!='='){
+                    encoded = encoded.substring(0,encoded.length()-1);
+                }
+                try{
+                    byte [] decoded = Base64.decode(encoded, Base64.DEFAULT);
+                    //Log.v("AsyncTaskGetImage", String.valueOf(count));
+                    Log.d("AsynctaskGetImages","Sent"+i);
+                    Bitmap map = BitmapFactory.decodeByteArray(decoded, 0, decoded.length);
+                    images.add(map);
+                } catch (IllegalArgumentException e){
 
-                byte[] decoded = Base64.decode(encoded, Base64.DEFAULT);
+                    e.printStackTrace();
+                }
 
-                //Log.v("AsyncTaskGetImage", String.valueOf(count));
-                Log.d("AsynctaskGetImages","Sent"+i);
-                Bitmap map = BitmapFactory.decodeByteArray(decoded, 0, decoded.length);
-                images.add(map);
+
+
+
             }
 
             socket.close();
