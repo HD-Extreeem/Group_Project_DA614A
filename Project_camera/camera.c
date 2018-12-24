@@ -58,14 +58,13 @@ void *conn_handler(void *arg)
     int           i             = 0;
     char          *resolution   = capture_get_resolutions_list(0);
     
-    imgs = "";
-    //syslog(LOG_INFO,"Resolutions available %s\n",resolution);
+    syslog(LOG_INFO,"Resolutions available %s\n",resolution);
     
     //Substring the first highest resolution
     res = strtok(resolution,",");
 
     //Build the parameter string used for the stream
-    sprintf(msg, "fps=3&%s",res);
+    sprintf(msg, "fps=1&%s",res);
     syslog(LOG_INFO,"Highest resolution = %s",res);
 
     //Open the stream to start capturing the images
@@ -79,12 +78,11 @@ void *conn_handler(void *arg)
         img_size  = capture_frame_size(frame);
         str       = base64_encode((unsigned char*)data, img_size, &output_length);
         imgs      = append(imgs,str);
-        free(str);
+        
         capture_frame_free(frame);
     }
     
-    syslog(LOG_INFO,"DONE SAVING IMAGES!");
-    return 0;
+    syslog(LOG_INFO,"DONE");
 }
 
 
@@ -96,7 +94,7 @@ void *conn_handler(void *arg)
  */
 void *send_img(void *client)
 {
-    char *img = "";
+    char *img;
     
     int  socket = *(int*)client;
     int  i      = 0;
@@ -104,9 +102,10 @@ void *send_img(void *client)
 
     //Loop over the images saved and send them to the Android client
     for ( i = 0; i < 10; ++i)
-    {   
-
+    {
+    	
         write(socket,img , strlen(img));
+        write(socket,"\n", strlen("\n"));
         
         //Get next image in img
         img = strtok(NULL,",");
@@ -115,12 +114,9 @@ void *send_img(void *client)
     
     //Free all resources and close socket connection
     imgs = "";
-    syslog(LOG_INFO,"Imgs sent to Android!");
-    //shutdown(socket,SHUT_RDWR);
-    //shutdown(client,SHUT_RDWR);
-    //close(client);
-    //free(client);
-    return 0;
+    syslog(LOG_INFO,"Imgs sent!");
+    close(socket);
+    free(socket);
 }
 
 
@@ -141,7 +137,7 @@ void send_response(int * client){
 char * append(char * str1, char * str2)
 {
     char * res = "";
-    asprintf(&res, "%s,%s\n", str1, str2);
+    asprintf(&res, "%s,%s", str1, str2);
     return res;
 }
 
@@ -182,39 +178,36 @@ int main(){
     conn = sizeof(struct sockaddr_in);
 
     //Loop forever and listen to incomming clients to connect
-    while((client_socket = accept(socket_desc, (struct sockaddr *)&client, (socklen_t*)&conn))>0){
+    while(client_socket = accept(socket_desc, (struct sockaddr *)&client, (socklen_t*)&conn)){
 		
         recv(client_socket,req,1000,0);
+        syslog(LOG_INFO,"got: %s",req);
 		
         if(strstr(req,"/getReady")){
 			
             send_response(client_socket);
             close(client_socket);
-            pthread_t get_img_thread;
+            pthread_t client_thread;
             
-            if( pthread_create( &get_img_thread , NULL ,conn_handler , NULL) < 0)
+            if( pthread_create( &client_thread , NULL ,conn_handler , NULL) < 0)
             {
                 syslog(LOG_INFO,"Failed to create msg thread!!!");
                 return 1;
             }
         }
         else if(strstr(req,"/send")){
-            if(strlen(imgs)>1){
-                syslog(LOG_INFO,"Sending images");
-                pthread_t send_img_thread;
+            syslog(LOG_INFO,"Sending images");
+            pthread_t client_thread;
             
-                //new_socket  = malloc(sizeof *new_socket);
-                //*new_socket = client_socket;
+            new_socket  = malloc(sizeof *new_socket);
+            *new_socket = client_socket;
             
-                if( pthread_create( &send_img_thread , NULL ,send_img, (void*)&client_socket) < 0)
-                {
-                    syslog(LOG_INFO,"Failed to create msg thread!!!");
-                    return 1;
-                }
+            if( pthread_create( &client_thread , NULL ,send_img, (void*)new_socket) < 0)
+            {
+                syslog(LOG_INFO,"Failed to create msg thread!!!");
+                return 1;
             }
-           
         }
-        memset(&req[0], 0, sizeof(req));
     }
 }
 
@@ -254,6 +247,5 @@ char *base64_encode(const unsigned char *data,
   for (i = 0; i < mod_table[input_length % 3]; i++)
     encoded_data[*output_length - 1 - i] = '=';
 
-  
   return encoded_data;
 }

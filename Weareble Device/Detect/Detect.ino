@@ -3,10 +3,10 @@
 // MPU6050 Slave Device Address
 const uint8_t MPU6050SlaveAddress = 0x68;
 // Select SDA and SCL pins for I2C communication
-const uint8_t scl = 5;
-const uint8_t sda = 4;
+const uint8_t scl = D6;
+const uint8_t sda = D7;
 int indx = 0;
-int LED = 0;
+int LED = D0;
 const int arrSize = 30;
 double AX[arrSize];
 double AY[arrSize];
@@ -64,7 +64,6 @@ void loop() {
   GX[indx] = Gx;
   GY[indx] = Gy;
   GZ[indx] = Gz;
-  Serial.println(Ax);
 
 
   /*
@@ -89,7 +88,7 @@ void loop() {
   */
 
   indx++;
-  if (indx == (arrSize - 1)) {
+  if (indx == arrSize) {
     AxD = Calculate_Diff(AX);
     AyD = Calculate_Diff(AY);
     AzD = Calculate_Diff(AZ);
