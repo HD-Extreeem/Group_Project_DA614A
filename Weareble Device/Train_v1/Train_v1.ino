@@ -103,7 +103,6 @@ void setup() {
 
 void loop() {
   delay(200);
-  Serial.print("hello");
   Ax1 = Ax;
   Ay1 = Ay;
   Az1 = Az;
@@ -118,7 +117,7 @@ void loop() {
     isNew = false;
   }
   else {
-    if ((Ax - Ax1 >= 500) || (Ax - Ax1 <= -500) || (Ay - Ay1 >= 500) || (Ay - Ay1 <= -500) || (Az - Az1 >= 500) || (Az - Az1 <= -500)) {
+    if ((Ax - Ax1 >= 750) || (Ax - Ax1 <= -750) || (Ay - Ay1 >= 750) || (Ay - Ay1 <= -750) || (Az - Az1 >= 750) || (Az - Az1 <= -750)) {
       isNew = true;
       String str = "";
       digitalWrite(alarm, HIGH);
@@ -130,7 +129,7 @@ void loop() {
         Gx = GyroX / GyroScaleFactor;
         Gy = GyroY / GyroScaleFactor;
         Gz = GyroZ / GyroScaleFactor;
-        str = "h," + String(Ax) + "," + String(Ay) + "," + String(Az) + "," + String(Gx) + "," + String(Gy) + "," + String(Gz) + ",";
+        str = "h," + String(Ax) + "," + String(Ay) + "," + String(Az) + "," + String(Gx) + "," + String(Gy) + "," + String(Gz);
         Serial.print(str);
         delay(100);
         str = "";
