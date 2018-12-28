@@ -10,19 +10,20 @@ import processing.serial.*;
 import java.io.*;
 import static javax.swing.JOptionPane.*;
 import java.awt.Toolkit;
-import wekaizing.*;
+//import wekaizing.*;
 
 //Declare the weka variables
-WekaData mydata;
-WekaClassifier classifier;
-String trainPath = "/Users/ag6031/Downloads/imu_Lab 3/imu_Lab_New/train_b.arff";
-String lable = "left";
+//WekaData mydata;
+//WekaClassifier classifier;
+String trainPath = "Users/YURDAER/Desktop/Group_Project_DA614A/Weareble Device/TrainData/train_walk.arff";
+
+String lable = "walk";
 int counter = 1;
 int counterg = 0;
 
-int freq = 20; //frequency of the sampling in sensor
+int freq = 10; //frequency of the sampling in sensor
 int sen = 5000; //sensitivity of the sensor
-int insNum = 20; //length of sliding window
+int insNum = 30; //length of sliding window
 int ins = 1; // counter for gesture
 boolean trainFile = true; // if trainFile is set to True, the application generates training dataset
 boolean logFile = false; // logs sensordata
@@ -42,15 +43,15 @@ boolean g_dumpToFile   = true;  // Dumps data to c:\\output.txt in a comma seper
 boolean g_enableFilter = true;  // Enables simple filter to help smooth out data.
 final boolean debug = false;
 Object[] testData = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
-//Serial myPort;        // The serial port
+Serial myPort;        // The serial port
 
-cDataArray g_xAccel    = new cDataArray(200);
-cDataArray g_yAccel    = new cDataArray(200);
-cDataArray g_zAccel    = new cDataArray(200);
-cDataArray g_vRef      = new cDataArray(200);
-cDataArray g_xRate     = new cDataArray(200);
-cDataArray g_yRate     = new cDataArray(200);
-cGraph g_graph         = new cGraph(10, 190, 800, 400);
+cDataArray g_xAccel    = new cDataArray(300);
+cDataArray g_yAccel    = new cDataArray(300);
+cDataArray g_zAccel    = new cDataArray(300);
+cDataArray g_vRef      = new cDataArray(300);
+cDataArray g_xRate     = new cDataArray(300);
+cDataArray g_yRate     = new cDataArray(300);
+cGraph g_graph         = new cGraph(100, 1900, 8000, 4000);
 Serial g_serial;
 PFont  g_font;
 
@@ -100,6 +101,7 @@ void setup()
   text("xGyro", 40, 490);
   text("yGyro", 40, 510);
   text("zGyro", 40, 530);
+  /*
 if (gesture_rec){
 
   mydata = new WekaData(trainPath); //Initialize a WekaData with empty attributes and dataset
@@ -108,7 +110,7 @@ if (gesture_rec){
   classifier.Build(mydata);
   }
 setupSensor();
-
+*/
 }
 
 void draw()
@@ -180,7 +182,7 @@ void processSerialData() {
         file.flush();
         counter++;
         }
-       
+       /*
        // Gesture recognition with WEKA lib
        if (gesture_rec){
          //Add Acc and gyr attributes to the object
@@ -205,6 +207,7 @@ void processSerialData() {
            println ("detected Gesture:"+gesture[pred]);
          }
        }
+       */
        }
       }
     }

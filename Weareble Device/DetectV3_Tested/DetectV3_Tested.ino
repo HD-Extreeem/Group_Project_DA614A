@@ -8,10 +8,10 @@
 ESP8266WiFiMulti WiFiMulti;
 WiFiClient espClient;
 PubSubClient client(espClient);
-const char* password = "yurdaer1";
+const char* password = "12345678";
 const char* ssid = "Yurdaer";
-//const char* password = "206264D2480";
-//const char* ssid = "Tele2Internet-9EB85";
+//const char* password = "46931304";
+//const char* ssid = "Tele2Internet-E6371";
 //IPAddress ip(192, 168, 20, 6);
 //IPAddress gateway(192, 168, 20, 1);
 //IPAddress subnet(255, 255, 255, 0);
