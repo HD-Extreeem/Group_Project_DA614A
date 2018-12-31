@@ -117,7 +117,7 @@ void loop() {
     isNew = false;
   }
   else {
-    if ((Ax - Ax1 >= 750) || (Ax - Ax1 <= -750) || (Ay - Ay1 >= 750) || (Ay - Ay1 <= -750) || (Az - Az1 >= 750) || (Az - Az1 <= -750)) {
+    if ((Ax - Ax1 >= 650) || (Ax - Ax1 <= -650) || (Ay - Ay1 >= 650) || (Ay - Ay1 <= -650) || (Az - Az1 >= 650) || (Az - Az1 <= -650)) {
       isNew = true;
       String str = "";
       digitalWrite(alarm, HIGH);
@@ -129,12 +129,16 @@ void loop() {
         Gx = GyroX / GyroScaleFactor;
         Gy = GyroY / GyroScaleFactor;
         Gz = GyroZ / GyroScaleFactor;
-        str = "h," + String(Ax) + "," + String(Ay) + "," + String(Az) + "," + String(Gx) + "," + String(Gy) + "," + String(Gz);
-        Serial.print(str);
+        str = "h," + String(Ax) + "," + String(Ay) + "," + String(Az) + "," + String(Gx) + "," + String(Gy) + "," + String(Gz) + ",";
+        Serial.println(str);
         delay(100);
         str = "";
       }
+      for (int i = 0; i <= 9; i++) {
+        delay(1000);
+      }
       digitalWrite(alarm, LOW);
+
     }
   }
 }
