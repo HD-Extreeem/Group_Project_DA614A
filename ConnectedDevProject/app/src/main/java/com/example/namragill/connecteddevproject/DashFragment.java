@@ -24,6 +24,7 @@ public class DashFragment extends Fragment {
     private ArrayList<Bitmap> images = new ArrayList<>();
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerViewAdapter adapter;
+    private RecyclerViewDisplay display;
 
 
     @Nullable

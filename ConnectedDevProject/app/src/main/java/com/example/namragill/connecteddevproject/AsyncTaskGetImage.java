@@ -27,8 +27,8 @@ import java.util.ArrayList;
  */
 
 public class AsyncTaskGetImage extends AsyncTask<Void,Void,ArrayList<Bitmap>> {
-    private RecyclerViewDisplay viewDisplay;
-    public AsyncTaskGetImage(RecyclerViewDisplay viewDisplay) throws UnknownHostException {
+    private DashFragment viewDisplay;
+    public AsyncTaskGetImage(DashFragment viewDisplay) throws UnknownHostException {
         this.viewDisplay = viewDisplay;
         execute();
     }
@@ -88,7 +88,7 @@ public class AsyncTaskGetImage extends AsyncTask<Void,Void,ArrayList<Bitmap>> {
 
             }
 
-            socket.close();
+ //           socket.close();
 
 
         } catch (IOException e) {
