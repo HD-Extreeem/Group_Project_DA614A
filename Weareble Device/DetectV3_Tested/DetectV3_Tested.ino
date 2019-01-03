@@ -8,13 +8,10 @@
 ESP8266WiFiMulti WiFiMulti;
 WiFiClient espClient;
 PubSubClient client(espClient);
-const char* password = "yurdaer1";
+const char* password = "12345678";
 const char* ssid = "Yurdaer";
-//const char* password = "206264D2480";
-//const char* ssid = "Tele2Internet-9EB85";
-//IPAddress ip(192, 168, 20, 6);
-//IPAddress gateway(192, 168, 20, 1);
-//IPAddress subnet(255, 255, 255, 0);
+//const char* password = "46931304";
+//const char* ssid = "Tele2Internet-E6371";
 const char* mqtt_server = "m23.cloudmqtt.com";
 const int mqtt_port =   10941;
 const char* mqtt_user = "Weareble";
@@ -25,27 +22,15 @@ char* helloMsg = "Fall detected";
 String msg = "Project/Fall";
 const String httpUrl = "http://192.168.20.2:8080/getReady";
 const int httpPort = 8080;
-// MPU6050 Slave Device Address
-const uint8_t MPU6050SlaveAddress = 0x68;
 // Select SDA and SCL pins for I2C communication
 const uint8_t scl = 5;
 const uint8_t sda = 4;
 int timeIndex = 0;
-int indx = 0;
-int wifi = 0;
-int alarm = 15;
+int wifi = 15;
+int alarm = 0;
 boolean isNew = true;
-const int arrSize = 60;
-double AX[arrSize];
-double AY[arrSize];
-double AZ[arrSize];
-double GX[arrSize];
-double GY[arrSize];
-double GZ[arrSize];
-double Ax, Ay, Az, Gx, Gy, Gz, Ax1, Ay1, Az1, AxD, AyD, AzD, GxD, GyD, GzD;
-// sensitivity scale factor respective to full scale setting provided in datasheet
-const uint16_t AccelScaleFactor = 128;
-const uint16_t GyroScaleFactor = 10;
+// MPU6050 Slave Device Address
+const uint8_t MPU6050SlaveAddress = 0x68;
 // MPU6050 few configuration register addresses
 const uint8_t MPU6050_REGISTER_SMPLRT_DIV   =  0x19;
 const uint8_t MPU6050_REGISTER_USER_CTRL    =  0x6A;
@@ -59,6 +44,18 @@ const uint8_t MPU6050_REGISTER_INT_ENABLE   =  0x38;
 const uint8_t MPU6050_REGISTER_ACCEL_XOUT_H =  0x3B;
 const uint8_t MPU6050_REGISTER_SIGNAL_PATH_RESET  = 0x68;
 int16_t AccelX, AccelY, AccelZ, GyroX, GyroY, GyroZ;
+const double oldAccMin = -3276;
+const double oldAccMax = 2303;
+const double oldGyroMin = -2771;
+const double oldGyroMax = 3276;
+const double newMinimum = 0;
+const double newMaximum = 200;
+int16_t dataArray[180];
+double dataNormArray[180];
+double finalArray[180];
+int16_t Ax, Ay, Az, Gx, Gy, Gz, Ax1, Ay1, Az1, AxD, AyD, AzD, GxD, GyD, GzD;
+const uint16_t AccelScaleFactor = 10; // sensitivity scale factor
+const uint16_t GyroScaleFactor = 10;
 boolean wifiConnected = false;
 Ticker checkWifi;
 
@@ -139,18 +136,7 @@ void reconnect() {
 }
 
 
-int Calculate_Diff(double arr[]) {
-  int minumum = 0, maximum = 0;
-  for (int i = 0; i < arrSize ; i++) {
-    if (arr[i] < minumum) {
-      minumum = arr[i];
-    }
-    else if (arr[i] >= maximum) {
-      maximum = arr[i];
-    }
-  }
-  return (maximum - minumum);
-}
+
 
 void I2C_Write(uint8_t deviceAddress, uint8_t regAddress, uint8_t data) {
   Wire.beginTransmission(deviceAddress);
@@ -199,10 +185,65 @@ void MPU6050_Init() {
   Serial.println(str_message);
   }
 */
+void MovingAverage() {
+  for (int16_t i = 0; i < 30; i++) {
+    if (i == 0) {
+      dataNormArray[i] = dataArray[i];
+      dataNormArray[1] = dataArray[1];
+      dataNormArray[2] = dataArray[2];
+      dataNormArray[3] = dataArray[3];
+      dataNormArray[4] = dataArray[4];
+      dataNormArray[5] = dataArray[5];
+    }
+    if (i == 1) {
+      dataNormArray[6] = (dataArray[6] + dataArray[0]) / 2;
+      dataNormArray[7] = (dataArray[7] + dataArray[1]) / 2;
+      dataNormArray[8] = (dataArray[8] + dataArray[2]) / 2;
+      dataNormArray[9] = (dataArray[9] + dataArray[3]) / 2;
+      dataNormArray[10] = (dataArray[10] + dataArray[4]) / 2;
+      dataNormArray[11] = (dataArray[11] + dataArray[5]) / 2;
+    }
+    if (i == 2) {
+      dataNormArray[12] = (dataArray[12] + dataArray[6] + dataArray[0]) / 3;
+      dataNormArray[13] = (dataArray[13] + dataArray[7] + dataArray[1]) / 3;
+      dataNormArray[14] = (dataArray[14] + dataArray[8] + dataArray[2]) / 3;
+      dataNormArray[15] = (dataArray[15] + dataArray[9] + dataArray[3]) / 3;
+      dataNormArray[16] = (dataArray[16] + dataArray[10] + dataArray[4]) / 3;
+      dataNormArray[17] = (dataArray[17] + dataArray[11] + dataArray[5]) / 3;
+    }
+    if (i == 3) {
+      dataNormArray[18] = (dataArray[18] + dataArray[12] + dataArray[6] + dataArray[0]) / 4;
+      dataNormArray[19] = (dataArray[19] + dataArray[13] + dataArray[7] + dataArray[1]) / 4;
+      dataNormArray[20] = (dataArray[20] + dataArray[14] + dataArray[8] + dataArray[2]) / 4;
+      dataNormArray[21] = (dataArray[21] + dataArray[15] + dataArray[9] + dataArray[3]) / 4;
+      dataNormArray[22] = (dataArray[22] + dataArray[16] + dataArray[10] + dataArray[4]) / 4;
+      dataNormArray[23] = (dataArray[23] + dataArray[17] + dataArray[11] + dataArray[5]) / 4;
+    }
+    if (i >= 4) {
+      dataNormArray[6 * (i)] = (dataArray[6 * (i)] + dataArray[6 * (i - 1)] + dataArray[6 * (i - 2)] + dataArray[6 * (i - 3)] + dataArray[6 * (i - 4)]) / 5;
+      dataNormArray[6 * (i) + 1] = (dataArray[6 * (i) + 1] + dataArray[6 * (i - 1) + 1] + dataArray[6 * (i - 2) + 1] + dataArray[6 * (i - 3) + 1] + dataArray[6 * (i - 4) + 1]) / 5;
+      dataNormArray[6 * (i) + 2] = (dataArray[6 * (i) + 2] + dataArray[6 * (i - 1) + 2] + dataArray[6 * (i - 2) + 2] + dataArray[6 * (i - 3) + 2] + dataArray[6 * (i - 4) + 2]) / 5;
+      dataNormArray[6 * (i) + 3] = (dataArray[6 * (i) + 3] + dataArray[6 * (i - 1) + 3] + dataArray[6 * (i - 2) + 3] + dataArray[6 * (i - 3) + 3] + dataArray[6 * (i - 4) + 3]) / 5;
+      dataNormArray[6 * (i) + 4] = (dataArray[6 * (i) + 4] + dataArray[6 * (i - 1) + 4] + dataArray[6 * (i - 2) + 4] + dataArray[6 * (i - 3) + 4] + dataArray[6 * (i - 4) + 4]) / 5;
+      dataNormArray[6 * (i) + 5] = (dataArray[6 * (i) + 5] + dataArray[6 * (i - 1) + 5] + dataArray[6 * (i - 2) + 5] + dataArray[6 * (i - 3) + 5] + dataArray[6 * (i - 4) + 5]) / 5;
+    }
+  }
+}
+
+void NormalizaData() {
+  for (int16_t i = 0; i < 30; i++) {
+    finalArray[6 * (i)] = ((dataNormArray[6 * (i)] - oldAccMin) / (oldAccMax - oldAccMin)) * (newMaximum - newMinimum) + newMinimum;
+    finalArray[6 * (i) + 1] = ((dataNormArray[6 * (i) + 1] - oldAccMin) / (oldAccMax - oldAccMin)) * (newMaximum - newMinimum) + newMinimum;
+    finalArray[6 * (i) + 2] = ((dataNormArray[6 * (i) + 2] - oldAccMin) / (oldAccMax - oldAccMin)) * (newMaximum - newMinimum) + newMinimum;
+    finalArray[6 * (i) + 3] = ((dataNormArray[6 * (i) + 3] - oldGyroMin) / (oldGyroMax - oldGyroMin)) * (newMaximum - newMinimum) + newMinimum;
+    finalArray[6 * (i) + 4] = ((dataNormArray[6 * (i) + 4] - oldGyroMin) / (oldGyroMax - oldGyroMin)) * (newMaximum - newMinimum) + newMinimum;
+    finalArray[6 * (i) + 5] = ((dataNormArray[6 * (i) + 5] - oldGyroMin) / (oldGyroMax - oldGyroMin)) * (newMaximum - newMinimum) + newMinimum;
+  }
+}
 
 void setup() {
-  Wire.begin(sda, scl);
   Serial.begin(9600);
+  Wire.begin(sda, scl);
   delay(1000);
   pinMode(wifi, OUTPUT);
   pinMode(alarm, OUTPUT);
@@ -220,6 +261,8 @@ void setup() {
   checkWifi.attach(10, CheckWifiStatus);
   // client.setCallback(callback);
   //  client.subscribe(inTopic);
+  client.publish(outTopic, "ready");
+  Serial.println("Setup ready");
 }
 
 
@@ -233,53 +276,60 @@ void loop() {
       wifiConnected = true;
     }
   }
-  delay(50);
+  delay(200);
   Ax1 = Ax;
   Ay1 = Ay;
   Az1 = Az;
   Read_RawValue(MPU6050SlaveAddress, MPU6050_REGISTER_ACCEL_XOUT_H);
-  Ax = (double) AccelX / AccelScaleFactor;
-  Ay = (double) AccelY / AccelScaleFactor;
-  Az = (double) AccelZ / AccelScaleFactor;
-  Gx = (double)GyroX / GyroScaleFactor;
-  Gy = (double)GyroY / GyroScaleFactor;
-  Gz = (double)GyroZ / GyroScaleFactor;
+  Ax =  AccelX / AccelScaleFactor;
+  Ay =  AccelY / AccelScaleFactor;
+  Az =  AccelZ / AccelScaleFactor;
+  Gx = GyroX / GyroScaleFactor;
+  Gy = GyroY / GyroScaleFactor;
+  Gz = GyroZ / GyroScaleFactor;
   if (isNew) {
     isNew = false;
   }
   else {
-    if ((Ax - Ax1 >= 60) || (Ax - Ax1 <= -60) || (Ay - Ay1 >= 60) || (Ay - Ay1 <= -60) || (Az - Az1 >= 60) || (Az - Az1 <= -60)) {
+    if ((Ax - Ax1 >= 650) || (Ax - Ax1 <= -650) || (Ay - Ay1 >= 650) || (Ay - Ay1 <= -650) || (Az - Az1 >= 650) || (Az - Az1 <= -650)) {
       isNew = true;
-      digitalWrite(alarm, HIGH);
-      while (indx < 60) {
-        AX[indx] = Ax;
-        AY[indx] = Ay;
-        AZ[indx] = Az;
-        GX[indx] = Gx;
-        GY[indx] = Gy;
-        GZ[indx] = Gz;
-        indx++;
-        delay(50);
+
+      for (int i = 0; i < 30; i++) {
+        Read_RawValue(MPU6050SlaveAddress, MPU6050_REGISTER_ACCEL_XOUT_H);
+        Ax =  AccelX / AccelScaleFactor;
+        Ay =  AccelY / AccelScaleFactor;
+        Az =  AccelZ / AccelScaleFactor;
+        Gx = GyroX / GyroScaleFactor;
+        Gy = GyroY / GyroScaleFactor;
+        Gz = GyroZ / GyroScaleFactor;
+        dataArray[(i * 6)] = Ax;
+        dataArray[(i * 6) + 1] = Ay;
+        dataArray[(i * 6) + 2] = Az;
+        dataArray[(i * 6) + 3] = Gx;
+        dataArray[(i * 6) + 4] = Gy;
+        dataArray[(i * 6) + 5] = Gz;
+        delay(100);
       }
-      digitalWrite(alarm, LOW);
-      indx = 0;
-      AxD = Calculate_Diff(AX);
-      Serial.print("AxD: "); Serial.println(AxD);
-      AyD = Calculate_Diff(AY);
-      Serial.print("AyD: "); Serial.println(AyD);
-      AzD = Calculate_Diff(AZ);
-      Serial.print("AzD: "); Serial.println(AzD);
-      // if ((AxD >= 200) || (AyD >= 200) || (AzD >= 200)) {
-      if (AxD + AyD + AzD >= 300) {
+      MovingAverage();
+      NormalizaData();
+      int a = (int)finalArray[9];
+      int b = (int)finalArray[146];
+      Serial.println(a);
+      Serial.println(b);
+      if ((a <= 84) && (b <= 121)) {
+        digitalWrite(alarm, HIGH);
+        Serial.println("FALL");
         sen_req("Test");
         client.publish(outTopic, helloMsg);
-        for (int i = 0; i <= 5; i++) {
+        for (int i = 0; i <= 10; i++) {
           digitalWrite(alarm, HIGH);   // turn the LED on (HIGH is the voltage level)
           delay(500);
           digitalWrite(alarm, LOW);   // turn the LED on (HIGH is the voltage level)
           delay(500);
         }
       }
+
+      digitalWrite(alarm, LOW);
     }
   }
   client.loop();

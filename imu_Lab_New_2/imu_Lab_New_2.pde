@@ -10,19 +10,20 @@ import processing.serial.*;
 import java.io.*;
 import static javax.swing.JOptionPane.*;
 import java.awt.Toolkit;
-import wekaizing.*;
+//import wekaizing.*;
 
 //Declare the weka variables
-WekaData mydata;
-WekaClassifier classifier;
-String trainPath = "/Users/ag6031/Downloads/imu_Lab 3/imu_Lab_New/train_b.arff";
-String lable = "left";
+//WekaData mydata;
+//WekaClassifier classifier;
+String trainPath = "Users/YURDAER/Desktop/Group_Project_DA614A/Weareble Device/TrainData/train_walk.arff";
+
+String lable = "fall";
 int counter = 1;
 int counterg = 0;
 
-int freq = 20; //frequency of the sampling in sensor
+int freq = 10; //frequency of the sampling in sensor
 int sen = 5000; //sensitivity of the sensor
-int insNum = 20; //length of sliding window
+int insNum = 30; //length of sliding window
 int ins = 1; // counter for gesture
 boolean trainFile = true; // if trainFile is set to True, the application generates training dataset
 boolean logFile = false; // logs sensordata
@@ -41,37 +42,37 @@ int g_winH             = 600;   // Window Height
 boolean g_dumpToFile   = true;  // Dumps data to c:\\output.txt in a comma seperated format (easy to import into Excel)
 boolean g_enableFilter = true;  // Enables simple filter to help smooth out data.
 final boolean debug = false;
-Object[] testData = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
-//Serial myPort;        // The serial port
+Object[] testData = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
+Serial myPort;        // The serial port
 
-cDataArray g_xAccel    = new cDataArray(200);
-cDataArray g_yAccel    = new cDataArray(200);
-cDataArray g_zAccel    = new cDataArray(200);
-cDataArray g_vRef      = new cDataArray(200);
-cDataArray g_xRate     = new cDataArray(200);
-cDataArray g_yRate     = new cDataArray(200);
-cGraph g_graph         = new cGraph(10, 190, 800, 400);
+cDataArray g_xAccel    = new cDataArray(300);
+cDataArray g_yAccel    = new cDataArray(300);
+cDataArray g_zAccel    = new cDataArray(300);
+cDataArray g_vRef      = new cDataArray(300);
+cDataArray g_xRate     = new cDataArray(300);
+cDataArray g_yRate     = new cDataArray(300);
+cGraph g_graph         = new cGraph(100, 1900, 8000, 4000);
 Serial g_serial;
 PFont  g_font;
 
 void setup()
 {
-  if (trainFile){
+  if (trainFile) {
     file = createWriter(lable+"_train.csv"); //bool tells to append
-  for (int i = 1; i <= insNum; i = i+1) {
-     file.print("AccX"+i+",AccY"+i+",AccZ"+i+",GyrX"+i+",GyrY"+i+",GyrZ"+i+","); //write the file header 
-  }
+    for (int i = 1; i <= insNum; i = i+1) {
+      file.print("AccX"+i+",AccY"+i+",AccZ"+i+",GyrX"+i+",GyrY"+i+",GyrZ"+i+","); //write the file header
+    }
     file.print("Label"+"\r\n"); //write the file header
 
-  file.flush();
+    file.flush();
   }
-  if (logFile){
+  if (logFile) {
     file = createWriter("log.csv"); //bool tells to append
     file.print("#,AccX,AccY,AccZ,GyrX,GyrY,GyrZ\r\n"); //write the file header
 
-  file.flush();
+    file.flush();
   }
-  
+
   String mypp = port();
   size(820, 600, P2D);
   println(Serial.list());
@@ -100,15 +101,16 @@ void setup()
   text("xGyro", 40, 490);
   text("yGyro", 40, 510);
   text("zGyro", 40, 530);
+  /*
 if (gesture_rec){
-
-  mydata = new WekaData(trainPath); //Initialize a WekaData with empty attributes and dataset
-  // upload trainig data
-  classifier = new WekaClassifier(WekaClassifier.LOGISTIC);//Initialize a new classifier with KStar algorithm
-  classifier.Build(mydata);
-  }
-setupSensor();
-
+   
+   mydata = new WekaData(trainPath); //Initialize a WekaData with empty attributes and dataset
+   // upload trainig data
+   classifier = new WekaClassifier(WekaClassifier.LOGISTIC);//Initialize a new classifier with KStar algorithm
+   classifier.Build(mydata);
+   }
+   setupSensor();
+   */
 }
 
 void draw()
@@ -159,56 +161,57 @@ void processSerialData() {
         g_vRef.addVal(vRef);
         g_xRate.addVal(xRate);
         g_yRate.addVal(yRate);
-      if (logFile) {
-      file.print(stamp + "," + xAccel + "," + yAccel + "," + zAccel + "," + vRef + "," + xRate + "," + yRate+"\r\n");
-      file.flush();
-      stamp++;
-    }
-       if (trainFile){
-        String tempStr;
-        tempStr = xAccel + "," + yAccel + "," + zAccel + "," + vRef + "," + xRate + "," + yRate + ",";
-        file.print(tempStr); //(string, start char, end char)
-        if (counter == insNum) {
-          file.print (lable+"\r\n");
-          counter = 0;
-          fill(0, 0, 0);
-           background(102);
-          text("Gesture Type:"+lable+",  Gesture Number:"+ins, 400, 530); 
-            Toolkit.getDefaultToolkit().beep();
-          ins++;
-      }
-        file.flush();
-        counter++;
+        if (logFile) {
+          file.print(stamp + "," + xAccel + "," + yAccel + "," + zAccel + "," + vRef + "," + xRate + "," + yRate+"\r\n");
+          file.flush();
+          stamp++;
         }
-       
+        if (trainFile) {
+          String tempStr;
+          tempStr = xAccel + "," + yAccel + "," + zAccel + "," + vRef + "," + xRate + "," + yRate + ",";
+          file.print(tempStr); //(string, start char, end char)
+          if (counter == insNum) {
+            file.print (lable+"\r\n");
+            counter = 0;
+            fill(0, 0, 0);
+            background(102);
+            text("Gesture Type:"+lable+",  Gesture Number:"+ins, 400, 530); 
+            Toolkit.getDefaultToolkit().beep();
+            ins++;
+          }
+          file.flush();
+          counter++;
+        }
+        /*
        // Gesture recognition with WEKA lib
-       if (gesture_rec){
+         if (gesture_rec){
          //Add Acc and gyr attributes to the object
-          testData[6*(counterg)] = xAccel;
-          testData[6*(counterg)+1] = yAccel;
-          testData[6*(counterg)+2] = zAccel;
-          testData[6*(counterg)+3] = vRef;
-          testData[6*(counterg)+4] = xRate;
-          testData[6*(counterg)+5] = yRate;
-          counterg++;
-          println (counterg);
+         testData[6*(counterg)] = xAccel;
+         testData[6*(counterg)+1] = yAccel;
+         testData[6*(counterg)+2] = zAccel;
+         testData[6*(counterg)+3] = vRef;
+         testData[6*(counterg)+4] = xRate;
+         testData[6*(counterg)+5] = yRate;
+         counterg++;
+         println (counterg);
          //Predict the class (the gestures "up", "right","left","down" ... are assigned to numbers 1,2,3,4 ...)
          String []gesture = {"up", "down","left","right","tilt_left","tilt_right"};
          if (counterg == insNum) {
-           testData[insNum] = 9;
-           counterg = 0;
-           fill(0, 0, 0);
-           background(102);
-           int pred = classifier.Classify(testData);
-           text("Detected Gesture:"+gesture[pred], 400, 530); 
-           Toolkit.getDefaultToolkit().beep();
-           println ("detected Gesture:"+gesture[pred]);
+         testData[insNum] = 9;
+         counterg = 0;
+         fill(0, 0, 0);
+         background(102);
+         int pred = classifier.Classify(testData);
+         text("Detected Gesture:"+gesture[pred], 400, 530); 
+         Toolkit.getDefaultToolkit().beep();
+         println ("detected Gesture:"+gesture[pred]);
          }
-       }
-       }
+         }
+         */
       }
     }
   }
+}
 
 
 // This class helps mangage the arrays of data I need to keep around for graphing.
@@ -347,7 +350,7 @@ String port() {
   }
   return portName;
 }
-void setupSensor(){
+void setupSensor() {
   g_serial.write("w"+insNum+"\n"); // set the window size in the sensor
 }
 void mousePressed() {

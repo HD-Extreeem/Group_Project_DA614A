@@ -1,13 +1,21 @@
 package com.example.namragill.connecteddevproject;
+
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Base64;
 import android.util.Log;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintStream;
 import java.net.InetAddress;
 import java.net.Socket;
@@ -19,8 +27,8 @@ import java.util.ArrayList;
  */
 
 public class AsyncTaskGetImage extends AsyncTask<Void,Void,ArrayList<Bitmap>> {
-    private RecyclerViewDisplay viewDisplay;
-    public AsyncTaskGetImage(RecyclerViewDisplay viewDisplay) throws UnknownHostException {
+    private DashFragment viewDisplay;
+    public AsyncTaskGetImage(DashFragment viewDisplay) throws UnknownHostException {
         this.viewDisplay = viewDisplay;
         execute();
     }
@@ -80,7 +88,7 @@ public class AsyncTaskGetImage extends AsyncTask<Void,Void,ArrayList<Bitmap>> {
 
             }
 
-            socket.close();
+ //           socket.close();
 
 
         } catch (IOException e) {
