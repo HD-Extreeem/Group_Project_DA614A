@@ -1,45 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/login"
     tools:context="com.example.namragill.connecteddevproject.MainActivity">
 
-    <Button
-        android:id="@+id/btn"
-        android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="450dp"
-        android:layout_marginBottom="72dp"
-        android:text="Login" />
-
-    <EditText
-        android:id="@+id/name"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/btn"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="86dp"
-        android:layout_marginBottom="380dp"
-        android:ems="10"
-        android:hint="Name"
-        android:inputType="textPersonName" />
+        android:textSize="39dp"
+        android:text="Detect the Fall "
+        android:textColor="@color/colorPrimary"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"/>
 
-    <EditText
-        android:id="@+id/password"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/name"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="272dp"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword" />
+        android:layout_gravity="center"
+        android:layout_marginTop="39dp"
+        android:background="@null"
+        android:orientation="vertical">
 
-</RelativeLayout>
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:hint="Username"
+            android:textColor="@color/colorPrimary"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:ems="10"
+            android:hint="Password"
+            android:textColor="@color/colorPrimary"
+            android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/btn"
+            android:layout_width="150dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="20dp"
+            android:background="?android:attr/colorAccent"
+            android:text="Login"
+            android:textColor="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:text="Forgot the password?"
+            android:textColor="@color/colorPrimary"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:clickable="true"/>
+
+    </LinearLayout>
+
+</LinearLayout>
