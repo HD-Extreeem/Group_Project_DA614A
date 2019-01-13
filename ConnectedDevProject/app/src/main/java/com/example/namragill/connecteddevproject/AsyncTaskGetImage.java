@@ -7,15 +7,9 @@ import android.os.AsyncTask;
 import android.util.Base64;
 import android.util.Log;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.PrintStream;
 import java.net.InetAddress;
 import java.net.Socket;
@@ -28,6 +22,7 @@ import java.util.ArrayList;
 
 public class AsyncTaskGetImage extends AsyncTask<Void,Void,ArrayList<Bitmap>> {
     private DashFragment viewDisplay;
+   // private NotifyFragment notifyFragment = new NotifyFragment();
     public AsyncTaskGetImage(DashFragment viewDisplay) throws UnknownHostException {
         this.viewDisplay = viewDisplay;
         execute();
@@ -41,10 +36,11 @@ public class AsyncTaskGetImage extends AsyncTask<Void,Void,ArrayList<Bitmap>> {
 
         try {
             Log.d("AsynctaskGetImages","Inside socket sending method");
-            Socket socket = new Socket(InetAddress.getByName("192.168.20.250"),8080);
+            Socket socket = new Socket(InetAddress.getByName("192.168.20.10"),8080);
             PrintStream stream = new PrintStream(socket.getOutputStream());
             stream.println("/send");
             Log.d("AsynctaskGetImages","sent to server");
+        //    notifyFragment.populatelist("Camera connected");
             //Works for java <--> android image transfer ONLY!
             /*ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
             for (int i = 0;i<10;i++){
@@ -78,6 +74,8 @@ public class AsyncTaskGetImage extends AsyncTask<Void,Void,ArrayList<Bitmap>> {
                     Log.d("AsynctaskGetImages","Sent"+i);
                     Bitmap map = BitmapFactory.decodeByteArray(decoded, 0, decoded.length);
                     images.add(map);
+                    Log.d("Images","gotten");
+             //       notifyFragment.populatelist("Camera sending images");
                 } catch (IllegalArgumentException e){
 
                     e.printStackTrace();
@@ -88,7 +86,7 @@ public class AsyncTaskGetImage extends AsyncTask<Void,Void,ArrayList<Bitmap>> {
 
             }
 
- //           socket.close();
+            //           socket.close();
 
 
         } catch (IOException e) {

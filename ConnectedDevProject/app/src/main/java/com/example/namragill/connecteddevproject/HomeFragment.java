@@ -16,18 +16,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.eclipse.paho.android.service.MqttAndroidClient;
-import org.eclipse.paho.client.mqttv3.IMqttActionListener;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
-import org.eclipse.paho.client.mqttv3.IMqttToken;
-import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
-import org.eclipse.paho.client.mqttv3.MqttClient;
-import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
-import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
-import static android.content.Context.NOTIFICATION_SERVICE;
+import java.util.Calendar;
+import java.util.Date;
+
 import static android.content.Context.VIBRATOR_SERVICE;
 
 /**
@@ -37,33 +32,31 @@ import static android.content.Context.VIBRATOR_SERVICE;
 public class HomeFragment extends Fragment {
 
     ImageView imageView;
-    public static TextView textStatus;
+    public static TextView textStatus, textTime;
     MqttHelper mqttHelper;
     Vibrator vibrator;
-
+    private NotifyFragment notifyFragment = new NotifyFragment();
     final String serverUri = "tcp://m23.cloudmqtt.com:10941";
-
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         vibrator = (Vibrator) getActivity().getSystemService(VIBRATOR_SERVICE);
-
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         initiatecomponents(view);
         startMqtt();
         Log.d("Debug", "after method");
+
         return view;
     }
-
     private void initiatecomponents(View view) {
-        imageView = (ImageView) view.findViewById(R.id.mainimg);
+        imageView =(ImageView) view.findViewById(R.id.mainimg);
         imageView.setImageResource(R.drawable.thumbsupicon);
-        textStatus = (TextView) view.findViewById(R.id.mainhome);
+        textStatus = (TextView)view.findViewById(R.id.mainhome);
+        textTime = (TextView)view.findViewById(R.id.maintime);
         textStatus.setText(R.string.recent_good);
     }
-
 
     private void startMqtt() {
         Log.d("Debug", "starting mqtt");
@@ -86,9 +79,24 @@ public class HomeFragment extends Fragment {
                 Log.d("Debug", "message gotten");
                 Log.d("Debug", topic);
                 Log.d("Debug", mqttMessage.toString());
-              //  textStatus.setText(mqttMessage.toString());
-                textStatus.setText(new String(mqttMessage.getPayload()));
-                vibrator.vibrate(500);
+
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(getActivity());
+                builder
+                        .setContentTitle("Title")
+                        .setContentText("content")
+                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setVisibility(NotificationCompat.VISIBILITY_PUBLIC);//to show content in lock screen
+                if (mqttMessage.toString().contains("Fall")){
+                    imageView.setImageResource(R.drawable.thumbsdown);
+                    Log.d("HomeFragment","changing image");
+                    textStatus.setText(mqttMessage.toString());
+                    Date currentTime = Calendar.getInstance().getTime();
+                    textTime.setText("On time: " + currentTime.toString());
+
+                }
+                else{
+                    notifyFragment.populatelist("Mqttmessage: " + mqttMessage.toString());
+                }
                 addNotification();
             }
 
@@ -99,7 +107,10 @@ public class HomeFragment extends Fragment {
         });
 
 
+
+
     }
+
     private void addNotification() {
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(getContext())

@@ -23,10 +23,10 @@ public class MqttHelper {
     final String serverUri = "tcp://m23.cloudmqtt.com:10941";
 
     final String clientId = "ExampleAndroidClient";
-    final String subscriptionTopic = "sensor/+";
+    final String subscriptionTopic = "sensor";
 
-    final String username = "Android";
-    final String password = "Android";
+    final String username = "dqaqegod";
+    final String password = "JVPMD0qw7ij4";
 
     public MqttHelper(Context context){
         mqttAndroidClient = new MqttAndroidClient(context, serverUri, clientId);
@@ -99,11 +99,14 @@ public class MqttHelper {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
                     Log.w("Mqtt","Subscribed!");
+  //                  notifyFragment.populatelist("Subscribed to cloud");
                 }
 
                 @Override
                 public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
                     Log.w("Mqtt", "Subscribed fail!");
+//                    notifyFragment.populatelist("Not Subscribed to cloud");
+
                 }
             });
 
