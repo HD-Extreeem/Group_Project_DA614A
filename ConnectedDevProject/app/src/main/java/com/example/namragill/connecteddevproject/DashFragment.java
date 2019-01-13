@@ -1,5 +1,7 @@
 package com.example.namragill.connecteddevproject;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -27,6 +29,7 @@ public class DashFragment extends Fragment {
     private RecyclerViewAdapter adapter;
     ViewImage viewImage;
     private NotifyFragment notifyFragment = new NotifyFragment();
+    Helper dbHelper;
 
     @Nullable
     @Override
@@ -34,6 +37,7 @@ public class DashFragment extends Fragment {
         View view = inflater.inflate(R.layout.recycler_view,container,false);
         initiatecomponents(view);
         images  = new ArrayList<>();
+        dbHelper = new Helper(getActivity());
         return view;
     }
 
@@ -62,7 +66,11 @@ public class DashFragment extends Fragment {
         this.images=image;
         setGridLayoutManager();
         setAdapter();
-        notifyFragment.populatelist("Server message: " + "images recieved");
+       // notifyFragment.populatelist("Server message: " + "images recieved");
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(Helper.COLUMN_VALUE,"Server message: " + "images recieved");
+        db.insert(Helper.TABLE_NAME_MES, "", values);
 //        Toast.makeText(getActivity(),"Please check images",Toast.LENGTH_SHORT);
 
     }

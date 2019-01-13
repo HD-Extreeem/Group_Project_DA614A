@@ -2,6 +2,8 @@ package com.example.namragill.connecteddevproject;
 
 import android.app.Activity;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,7 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -19,13 +23,15 @@ import java.util.ArrayList;
  * Created by namragill on 2018-11-14.
  */
 
-public class NotifyFragment extends Fragment  {
+public class NotifyFragment extends Fragment implements View.OnClickListener {
 
     public static ListView listView;
    public static ArrayAdapter arrayAdapter;
-    MainActivity mainActivity;
     protected static FragmentActivity mActivity;
     public static Context context;
+    Helper myDB;
+    Cursor data;
+    static Button button;
 
     public static ArrayList<String> theList = new ArrayList<>();
 
@@ -37,11 +43,9 @@ public class NotifyFragment extends Fragment  {
         initialise(view);
      //   mainActivity = new MainActivity();
             context =  super.getContext();
-       return view;
-    }
-
-    private void populate() {
-        populatelist(null);
+        myDB = new Helper(getActivity());
+        populatelist();
+        return view;
     }
 
 
@@ -50,24 +54,34 @@ public class NotifyFragment extends Fragment  {
         return super.getContext();
     }
 
-    public void populatelist(String message) {
-        //mainActivity = new MainActivity();
+    public void populatelist() {
+        //mainActivity = new MainActivity();'
 
-            theList.add(message);
-            Log.d("notiy", String.valueOf(mActivity));
-            Log.d("notiy", String.valueOf(android.R.layout.simple_list_item_1));
-            Log.d("notiy", String.valueOf(theList));
-            arrayAdapter = new ArrayAdapter<>(mActivity, android.R.layout.simple_list_item_1, theList);
-            Log.d("notiy", String.valueOf(arrayAdapter));
-            listView.setAdapter(arrayAdapter);
-            Log.d("notdhdjn", String.valueOf(listView));
+            final ArrayList<String> theList = new ArrayList<>();
+            data = myDB.getAllData();
+            int message = data.getColumnIndex(Helper.COLUMN_VALUE);
+        Log.d("Populate", String.valueOf(message));
+
+            if ( data.getCount() == 0){
+                Toast.makeText(getActivity(),"There is no data in the database", Toast.LENGTH_LONG).show();
+            }
+            else{
+                while (data.moveToNext()){
+                    theList.add(data.getString(message) );
+                }
+
+                arrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, theList);
+                listView.setAdapter(arrayAdapter);
 
 
+        }
 
     }
 
     private void initialise(View view) {
         listView = (ListView)view.findViewById(R.id.list_notify);
+        button = (Button)view.findViewById(R.id.del);
+        button.setOnClickListener(this);
      
     }
     @Override
@@ -79,4 +93,10 @@ public class NotifyFragment extends Fragment  {
         }
     }
 
+    @Override
+    public void onClick(View v) {
+        SQLiteDatabase db = myDB.getWritableDatabase();
+        db.delete(Helper.TABLE_NAME_MES, null, null);
+        populatelist();
+    }
 }

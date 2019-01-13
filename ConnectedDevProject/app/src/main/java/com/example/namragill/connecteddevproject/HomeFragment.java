@@ -2,8 +2,10 @@ package com.example.namragill.connecteddevproject;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.annotation.Nullable;
@@ -37,6 +39,8 @@ public class HomeFragment extends Fragment {
     Vibrator vibrator;
     private NotifyFragment notifyFragment = new NotifyFragment();
     final String serverUri = "tcp://m23.cloudmqtt.com:10941";
+    Helper dbHelper;
+
 
     @Nullable
     @Override
@@ -47,6 +51,7 @@ public class HomeFragment extends Fragment {
         initiatecomponents(view);
         startMqtt();
         Log.d("Debug", "after method");
+        dbHelper = new Helper(getActivity());
 
         return view;
     }
@@ -94,9 +99,12 @@ public class HomeFragment extends Fragment {
                     textTime.setText("On time: " + currentTime.toString());
 
                 }
-                else{
-                    notifyFragment.populatelist("Mqttmessage: " + mqttMessage.toString());
-                }
+
+               //     notifyFragment.populatelist("Mqttmessage: " + mqttMessage.toString());
+                SQLiteDatabase db = dbHelper.getWritableDatabase();
+                ContentValues values = new ContentValues();
+                values.put(Helper.COLUMN_VALUE,"Mqtt: " + mqttMessage.toString());
+                db.insert(Helper.TABLE_NAME_MES, "", values);
                 addNotification();
             }
 
