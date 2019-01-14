@@ -40,6 +40,7 @@ public class HomeFragment extends Fragment {
     private NotifyFragment notifyFragment = new NotifyFragment();
     final String serverUri = "tcp://m23.cloudmqtt.com:10941";
     Helper dbHelper;
+    public static String message;
 
 
     @Nullable
@@ -60,7 +61,13 @@ public class HomeFragment extends Fragment {
         imageView.setImageResource(R.drawable.thumbsupicon);
         textStatus = (TextView)view.findViewById(R.id.mainhome);
         textTime = (TextView)view.findViewById(R.id.maintime);
-        textStatus.setText(R.string.recent_good);
+        if (message == null){
+            this.message = "Everything is ok";
+        }
+        textStatus.setText(message);
+        if (message.contains("Fall")){
+            imageView.setImageResource(R.drawable.thumbsdown);
+        }
     }
 
     private void startMqtt() {
@@ -105,6 +112,9 @@ public class HomeFragment extends Fragment {
                 ContentValues values = new ContentValues();
                 values.put(Helper.COLUMN_VALUE,"Mqtt: " + mqttMessage.toString());
                 db.insert(Helper.TABLE_NAME_MES, "", values);
+                setText(new String(mqttMessage.getPayload()));
+                textStatus.setText(new String(mqttMessage.getPayload()));
+                vibrator.vibrate(500);
                 addNotification();
             }
 
@@ -119,6 +129,10 @@ public class HomeFragment extends Fragment {
 
     }
 
+    private void setText(String s) {
+       this.message = s;
+    }
+
     private void addNotification() {
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(getContext())
@@ -126,7 +140,7 @@ public class HomeFragment extends Fragment {
                         .setContentTitle("Movement detection")
                         .setContentText("Unusual movement detected");
 
-        Intent notificationIntent = new Intent(getActivity(),HomeFragment.class);
+        Intent notificationIntent = new Intent(getActivity(),ControllerActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(getContext(), 0, notificationIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(contentIntent);
