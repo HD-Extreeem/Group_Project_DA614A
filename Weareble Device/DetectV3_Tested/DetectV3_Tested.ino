@@ -8,10 +8,10 @@
 ESP8266WiFiMulti WiFiMulti;
 WiFiClient espClient;
 PubSubClient client(espClient);
-const char* password = "12345678";
-const char* ssid = "Yurdaer";
-//const char* password = "46931304";
-//const char* ssid = "Tele2Internet-E6371";
+//const char* password = "12345678";
+//const char* ssid = "Yurdaer";
+const char* password = "206264D2480";
+const char* ssid = "Tele2Internet-9EB85";
 const char* mqtt_server = "m23.cloudmqtt.com";
 const int mqtt_port =   10941;
 const char* mqtt_user = "Weareble";
@@ -20,13 +20,13 @@ char* inTopic = "Project/Weareble";
 char* outTopic = "sensor";
 char* helloMsg = "Fall detected";
 String msg = "Project/Fall";
-const String httpUrl = "http://192.168.20.2:8080/getReady";
+const String httpUrl = "http://192.168.20.10:8080/getReady";
 const int httpPort = 8080;
 // Select SDA and SCL pins for I2C communication
 const uint8_t scl = 5;
 const uint8_t sda = 4;
 int timeIndex = 0;
-int wifi = 15;
+int wifi = 2;
 int alarm = 0;
 boolean isNew = true;
 // MPU6050 Slave Device Address
@@ -96,17 +96,17 @@ void setup_wifi() {
   Serial.println(ssid);
   WiFiMulti.addAP(ssid, password);
   while (WiFiMulti.run() != WL_CONNECTED) {
-    delay(500);
-    digitalWrite(wifi, HIGH);
-    delay(500);
+    delay(1000);
     digitalWrite(wifi, LOW);
+    delay(1000);
+    digitalWrite(wifi, HIGH);
     Serial.print(".");
   }
   Serial.println("");
   Serial.println("WiFi connected");
   Serial.println("IP address: ");
   Serial.println(WiFi.localIP());
-  digitalWrite(wifi, HIGH);
+  digitalWrite(wifi, LOW);
   wifiConnected = true;
 }
 
@@ -115,7 +115,7 @@ void setup_wifi() {
 void reconnect() {
   // Loop until we're reconnected
   while (!client.connected()) {
-    digitalWrite(wifi, LOW);
+    digitalWrite(wifi, HIGH);
     Serial.print("Attempting MQTT connection...");
     // Attempt to connect
     if (client.connect("ESP8266Client", mqtt_user, mqtt_password)) {
@@ -132,7 +132,7 @@ void reconnect() {
       delay(5000);
     }
   }
-  digitalWrite(wifi, HIGH);
+  digitalWrite(wifi, LOW);
 }
 
 
@@ -293,7 +293,7 @@ void loop() {
   else {
     if ((Ax - Ax1 >= 650) || (Ax - Ax1 <= -650) || (Ay - Ay1 >= 650) || (Ay - Ay1 <= -650) || (Az - Az1 >= 650) || (Az - Az1 <= -650)) {
       isNew = true;
-
+      digitalWrite(alarm, HIGH);
       for (int i = 0; i < 30; i++) {
         Read_RawValue(MPU6050SlaveAddress, MPU6050_REGISTER_ACCEL_XOUT_H);
         Ax =  AccelX / AccelScaleFactor;
@@ -317,7 +317,7 @@ void loop() {
       Serial.println(a);
       Serial.println(b);
       if ((a <= 84) && (b <= 121)) {
-        digitalWrite(alarm, HIGH);
+
         Serial.println("FALL");
         sen_req("Test");
         client.publish(outTopic, helloMsg);
@@ -329,8 +329,9 @@ void loop() {
         }
       }
 
-      digitalWrite(alarm, LOW);
     }
+
+    digitalWrite(alarm, LOW);
   }
   client.loop();
 }
