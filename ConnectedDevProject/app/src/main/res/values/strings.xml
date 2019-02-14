@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">ConnectedDevProject</string>
     <string name="title_activity_controller">ControllerActivity</string>
-    <string name="title_home">Panel</string>
-    <string name="title_dashboard">Alarm</string>
+    <string name="title_home">Alarm</string>
+    <string name="title_dashboard">Images</string>
     <string name="title_notifications">Logs</string>
     <string name="recent_good">Everything is Ok!</string>
     <string name="recent_bad">Granny has fallen!</string>

@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 public abstract class RecyclerViewAdapter extends RecyclerView
         .Adapter<RecyclerViewAdapter.CustomRecycleViewHolder> {
 
+
     private AdapterView.OnItemClickListener onItemClickListener;
     private AdapterView.OnItemLongClickListener onItemLongClickListener;
 
